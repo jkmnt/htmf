@@ -58,7 +58,10 @@ class Safe(str):
 
 
 def safe(s: Safe) -> Safe:
-    """noop wrapper for HTML-safe strings. Useful for linting if linter fails to infer to corrent type"""
+    """
+    noop wrapper for HTML-safe strings.
+    Useful for linting if linter fails to infer to corrent type
+    """
     return s
 
 
@@ -136,8 +139,10 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
 
 def classname(*args: (CnArg | t.Iterable[CnArg])) -> Safe:
     """
-    Another take on a classic `classnames`. The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
-    All `str` classes are flattened and joined into the single (unquoted!) string suitable for inclusion into the `class` attribute.
+    Another take on a classic `classnames`.
+    The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
+    All `str` classes are flattened and joined into the single (unquoted!) string suitable
+    for inclusion into the `class` attribute.
     [EXAMPLE HERE]
     """
     return _join_truthy_strings(*args, sep=" ")

@@ -17,3 +17,22 @@ dynamic = ["version", "description"]
 
 [project.urls]
 Home = "https://github.com/jkmnt/hitml"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "FBT",
+    "C4",
+    "LOG",
+    "RET",
+    "RET502",
+    "INT",
+    "RUF",
+]

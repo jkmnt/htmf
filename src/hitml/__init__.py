@@ -1,4 +1,4 @@
-""" hitml: Python f-strings HTML templating library """
+"""hitml: Python f-strings HTML templating library"""
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
