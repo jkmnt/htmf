@@ -1,3 +1,9 @@
+""" hitml: Python f-strings HTML templating library """
+
+# Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
+
+__version__ = "0.1.0.dev"
+
 from .hitml import (
     attr,
     Attrs,
