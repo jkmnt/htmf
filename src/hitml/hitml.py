@@ -57,6 +57,11 @@ class Safe(str):
     pass
 
 
+S = t.TypeVar("S", bound="Safe")
+SafeOf = t.Annotated[S, "safe"]
+"""Generic annotation to mark NewType(T, Safe) as safe for linter"""
+
+
 def safe(s: Safe) -> Safe:
     """
     noop wrapper for HTML-safe strings.
