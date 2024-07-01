@@ -2,7 +2,7 @@
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
-__version__ = "0.1.0.dev0"
+__version__ = "0.1.0.dev1"
 
 from .hitml import (
     attr,
