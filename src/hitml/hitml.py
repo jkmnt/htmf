@@ -182,10 +182,10 @@ def stylesheet(s: str) -> Safe:
 def script(s: str) -> Safe:
     """
     Wrapper for inline javascript for inclusion into the <script> tag.
-    Doing almost nothing.
+    Escapes '</' according to the https://www.w3.org/TR/html401/appendix/notes.html#h-B.3.2
     Triggers the JS-syntax highlight.
     """
-    return Safe(s.replace("</script>", r"<\/script>"))
+    return Safe(s.replace("</", r"<\/"))
 
 
 def json_attr(val: t.Mapping[str, t.Any]) -> Safe:
