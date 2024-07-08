@@ -1,13 +1,14 @@
 from __future__ import annotations
 
-import typing as t
+from typing import Mapping, Iterable, TypeVar, Annotated, Any, TypeGuard
+
 
 import json
 from html import escape as _html_escape
 from urllib.parse import quote as _urllib_quote
 
 Arg = str | bool | None | int | float
-Attrs = t.Mapping[str, Arg]
+Attrs = Mapping[str, Arg]
 CnArg = str | bool | None
 
 
@@ -31,18 +32,22 @@ def _format_kv(args: Attrs) -> Safe:
     return Safe(" ".join(keyvals))
 
 
-def _join_truthy_strings(*args: (CnArg | t.Iterable[CnArg]), sep: str) -> Safe:
+def _join_truthy_strings(*args: (CnArg | Iterable[CnArg]), sep: str) -> Safe:
     toks: list[str] = []
 
     for arg in args:
-        if arg is None or arg is True or arg is False:
-            pass
-        elif isinstance(arg, str):
+        if isinstance(arg, str):
             toks.append(arg)
-        else:
+        elif isinstance(arg, Iterable):
             toks.extend(f for f in arg if isinstance(f, str))
 
     return escape(sep.join([name for tok in toks if (name := tok.strip())]))
+
+
+def _should_be_rendered(arg: Any) -> TypeGuard[str | int | float]:
+    if arg is True or arg is False:
+        return False
+    return isinstance(arg, (str, int, float))
 
 
 class Safe(str):
@@ -57,8 +62,8 @@ class Safe(str):
     pass
 
 
-S = t.TypeVar("S", bound="Safe")
-SafeOf = t.Annotated[S, "safe"]
+S = TypeVar("S", bound="Safe")
+SafeOf = Annotated[S, "safe"]
 """Generic annotation to mark NewType(T, Safe) as safe for linter"""
 
 
@@ -100,7 +105,7 @@ def markup(s: str | None | bool) -> Safe:
     return Safe(s.strip() if isinstance(s, str) else "")
 
 
-def text(*args: Arg | t.Iterable[Arg]) -> Safe:
+def text(*args: Arg | Iterable[Arg]) -> Safe:
     """
     Basic building block for HTML texts and fragments.
 
@@ -114,14 +119,10 @@ def text(*args: Arg | t.Iterable[Arg]) -> Safe:
     texts: list[str] = []
 
     for arg in args:
-        if arg is None or arg is True or arg is False:
-            pass
-        elif isinstance(arg, (str, int, float)):
+        if _should_be_rendered(arg):
             texts.append(_format_tok(arg))
-        else:  # iterable for sure
-            texts.extend(
-                _format_tok(subarg) for subarg in arg if not (subarg is None or subarg is True or subarg is False)
-            )
+        elif isinstance(arg, Iterable):
+            texts.extend(_format_tok(subarg) for subarg in arg if _should_be_rendered(subarg))
 
     return Safe("".join(text for text in texts if text))
 
@@ -142,7 +143,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     return _format_kv((arg | kwargs) if arg else kwargs)
 
 
-def classname(*args: (CnArg | t.Iterable[CnArg])) -> Safe:
+def classname(*args: (CnArg | Iterable[CnArg])) -> Safe:
     """
     Another take on a classic `classnames`.
     The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
@@ -188,7 +189,7 @@ def script(s: str) -> Safe:
     return Safe(s.replace("</", r"<\/"))
 
 
-def json_attr(val: t.Mapping[str, t.Any]) -> Safe:
+def json_attr(val: Mapping[str, Any]) -> Safe:
     """
     JSON-format the attribute and HTML-escape it.
     Useful for htmx hx-vals attribute
@@ -196,7 +197,7 @@ def json_attr(val: t.Mapping[str, t.Any]) -> Safe:
     return escape(json.dumps(val, separators=(",", ":")))
 
 
-def csv_attr(*args: (CnArg | t.Iterable[CnArg])) -> Safe:
+def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe:
     """
     Same as the `classnames` but joins string with commas instead of the whitespaces.
     Useful for htmx hx-trigger attribute
