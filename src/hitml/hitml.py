@@ -19,14 +19,15 @@ def _format_kv(args: Attrs) -> Safe:
     keyvals: list[str] = []
 
     for k, v in sorted(args.items()):
+        k = Safe(escape(k).strip())
         if v is None or v is False:
             pass
         elif not k:  # special catch for the empty key
             pass
         elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
-            keyvals.append(escape(k))
+            keyvals.append(k)
         else:  # kv attribute
-            keyvals.append(f'{ escape(k) }="{ _format_tok(v) }"')
+            keyvals.append(f'{ k }="{ _format_tok(v) }"')
 
     return Safe(" ".join(keyvals))
 

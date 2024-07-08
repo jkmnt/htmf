@@ -115,7 +115,24 @@ def test_classname():
 
 def test_attr():
     assert (
-        attr({"display": "hidden", "tabindex": -1, "type": "submit", "hx-boost": True})
+        attr(
+            {
+                "display": "hidden",
+                "tabindex": -1,
+                "type": "submit",
+                "hx-boost": True,
+            }
+        )
+        == 'display="hidden" hx-boost tabindex="-1" type="submit"'
+    )
+
+    assert (
+        attr(
+            {"hx-boost": True},
+            display="hidden",
+            tabindex=-1,
+            type="submit",
+        )
         == 'display="hidden" hx-boost tabindex="-1" type="submit"'
     )
 
@@ -129,6 +146,13 @@ def test_attr():
 
     assert attr({"data-user": True}) == "data-user"
     assert attr({"data-user": True}, id=False) == "data-user"
+
+    # whitespaces. keys are trimmed while values are not
+    assert attr({"  data-user ": "   123 "}) == 'data-user="   123 "'
+
+    # empty key and strips
+    assert attr({"": True}) == ""
+    assert attr({" ": True}) == ""
 
     # merge
     assert attr({"data-user": True, "id": True}, id=False) == "data-user"
