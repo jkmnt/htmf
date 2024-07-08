@@ -20,7 +20,6 @@ from .hitml import (
     style,
     stylesheet,
     text,
-    url,
     # aliases
     classname as c,
     markup as document,
@@ -48,5 +47,4 @@ __all__ = [
     "stylesheet",
     "t",
     "text",
-    "url",
 ]

@@ -5,7 +5,6 @@ from typing import Mapping, Iterable, TypeVar, Annotated, Any, TypeGuard
 
 import json
 from html import escape as _html_escape
-from urllib.parse import quote as _urllib_quote
 
 Arg = str | bool | None | int | float
 Attrs = Mapping[str, Arg]
@@ -37,11 +36,11 @@ def _join_truthy_strings(*args: (CnArg | Iterable[CnArg]), sep: str) -> Safe:
 
     for arg in args:
         if isinstance(arg, str):
-            toks.append(arg)
+            toks.append(escape(arg))
         elif isinstance(arg, Iterable):
-            toks.extend(f for f in arg if isinstance(f, str))
+            toks.extend(escape(f) for f in arg if isinstance(f, str))
 
-    return escape(sep.join([name for tok in toks if (name := tok.strip())]))
+    return Safe(sep.join([name for tok in toks if (name := tok.strip())]))
 
 
 def _should_be_rendered(arg: Any) -> TypeGuard[str | int | float]:
@@ -90,11 +89,6 @@ def escape(s: str | None) -> Safe:
     if s:
         return Safe(_html_escape(s))
     return Safe("")
-
-
-def url(string: str, /, safe="/", errors: str | None = None) -> Safe:
-    """Make the string url-safe and escape HTML-unsafe characters"""
-    return escape(_urllib_quote(string, safe=safe, errors=errors))
 
 
 def markup(s: str | None | bool) -> Safe:
