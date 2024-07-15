@@ -136,7 +136,6 @@ def classname(*args: (CnArg | Iterable[CnArg])) -> Safe:
     The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
     All `str` classes are flattened and joined into the single (unquoted!) string suitable
     for inclusion into the `class` attribute.
-    [EXAMPLE HERE]
     """
     return _join_truthy_strings(*args, sep=" ")
 
@@ -179,14 +178,12 @@ def script(s: str) -> Safe:
 def json_attr(val: Mapping[str, Any]) -> Safe:
     """
     JSON-format the attribute and HTML-escape it.
-    Useful for htmx hx-vals attribute
     """
     return escape(json.dumps(val, separators=(",", ":")))
 
 
 def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe:
     """
-    Same as the `classnames` but joins string with commas instead of the whitespaces.
-    Useful for htmx hx-trigger attribute
+    Same as the `classname` but joins string with commas instead of the whitespaces.
     """
     return _join_truthy_strings(*args, sep=",")
