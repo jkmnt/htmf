@@ -64,7 +64,7 @@ def Layout(body: Safe, title: str):
 
 app = Flask(__name__)
 
-# From the wiki
+# https://en.wikipedia.org/wiki/List_of_soups
 SOUPS = {
     1: Soup("Aguadito", ["Peru"], True),
     2: Soup("Ant egg soup", ["Laos", "Northeastern Thailand"], True),
@@ -85,4 +85,4 @@ def soup(id: int):
     found = SOUPS.get(id)
     if not found:
         return Layout(ht.t("Unknown soup id"), title="Soup 404")
-    return Layout(SoupCard(id, found), title="Soups list")
+    return Layout(SoupCard(id, found), title=found.name)
