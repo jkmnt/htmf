@@ -1,19 +1,18 @@
-"""hitml: Python f-strings HTML templating library"""
+"""htmf: Python f-strings HTML templating library"""
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
-__version__ = "0.1.0.dev1"
+__version__ = "0.2.0.dev1"
 
-from .hitml import (
+from .htmf import (
     attr,
     Attrs,
     classname,
     csv_attr,
-    dangerously_mark_as_safe,
     handler,
     json_attr,
+    mark_as_safe,
     markup,
-    safe,
     Safe,
     SafeOf,
     script,
@@ -33,13 +32,12 @@ __all__ = [
     "c",
     "classname",
     "csv_attr",
-    "dangerously_mark_as_safe",
     "document",
     "handler",
     "json_attr",
     "m",
+    "mark_as_safe",
     "markup",
-    "safe",
     "Safe",
     "SafeOf",
     "script",

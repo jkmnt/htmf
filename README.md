@@ -1,2 +1,2 @@
-# hitml
-hitml: Python f-strings HTML templating library
+# htmf
+htmf: Python f-strings HTML templating library

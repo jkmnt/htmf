@@ -67,15 +67,7 @@ SafeOf = Annotated[S, "safe"]
 """Generic annotation to mark NewType(T, Safe) as safe for linter"""
 
 
-def safe(s: Safe) -> Safe:
-    """
-    noop wrapper for HTML-safe strings.
-    Useful for linting if linter fails to infer to corrent type
-    """
-    return s
-
-
-def dangerously_mark_as_safe(s: str) -> Safe:
+def mark_as_safe(s: str) -> Safe:
     """
     Mark the string as safe, promoting it to the Safe class.
     Escape hatch if you really need to include some not-to-be esscaped string.
