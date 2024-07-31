@@ -79,11 +79,12 @@ def mark_as_safe(s: str) -> Safe:
 
 def escape(s: str | None) -> Safe:
     """HTML-escape the string making it safe for inclusion in the markup"""
-    if isinstance(s, Safe):
+    cls = Safe
+    if isinstance(s, cls):
         return s
     if s:
-        return Safe(_html_escape(s))
-    return Safe("")
+        return cls(_html_escape(s))
+    return cls()
 
 
 def markup(s: str | None | bool) -> Safe:
