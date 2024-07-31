@@ -4,11 +4,15 @@ from typing import Mapping, Iterable, TypeVar, Annotated, Any, TypeGuard
 
 
 import json
-from html import escape as _html_escape
+from html import escape as _html_escape, unescape as _html_unescape
 
 Arg = str | bool | None | int | float
 Attrs = Mapping[str, Arg]
 CnArg = str | bool | None
+
+S = TypeVar("S", bound="Safe")
+SafeOf = Annotated[S, "safe"]
+"""Generic annotation to mark NewType(T, Safe) as safe for linter"""
 
 
 def _format_tok(tok: str | int | float) -> Safe:
@@ -61,10 +65,8 @@ class Safe(str):
 
     pass
 
-
-S = TypeVar("S", bound="Safe")
-SafeOf = Annotated[S, "safe"]
-"""Generic annotation to mark NewType(T, Safe) as safe for linter"""
+    def unescape(self) -> str:
+        return _html_unescape(self)
 
 
 def mark_as_safe(s: str) -> Safe:
@@ -111,7 +113,7 @@ def text(*args: Arg | Iterable[Arg]) -> Safe:
         elif isinstance(arg, Iterable):
             texts.extend(_format_tok(subarg) for subarg in arg if _should_be_rendered(subarg))
 
-    return Safe("".join(text for text in texts if text))
+    return Safe("".join(texts))
 
 
 def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
