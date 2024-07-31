@@ -63,8 +63,6 @@ class Safe(str):
     Not intended to be instantiated outside of the library code !
     """
 
-    pass
-
     def unescape(self) -> str:
         return _html_unescape(self)
 
@@ -77,22 +75,19 @@ def mark_as_safe(s: str) -> Safe:
     return Safe(s)
 
 
-def escape(s: str | None) -> Safe:
+def escape(s: str) -> Safe:
     """HTML-escape the string making it safe for inclusion in the markup"""
-    cls = Safe
-    if isinstance(s, cls):
+    if isinstance(s, Safe):
         return s
-    if s:
-        return cls(_html_escape(s))
-    return cls()
+    return Safe(_html_escape(s))
 
 
-def markup(s: str | None | bool) -> Safe:
+def markup(s: str) -> Safe:
     """
     Strips the whitespaces and marks the string as safe.
     Triggers the HTML-syntax highlight
     """
-    return Safe(s.strip() if isinstance(s, str) else "")
+    return Safe(s.strip())
 
 
 def text(*args: Arg | Iterable[Arg]) -> Safe:
