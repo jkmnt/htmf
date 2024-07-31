@@ -16,19 +16,20 @@ SafeOf = Annotated[S, "safe"]
 
 
 def _format_tok(tok: str | int | float) -> Safe:
-    return escape(tok if isinstance(tok, str) else f"{ tok }")
+    return escape(tok if isinstance(tok, str) else str(tok))
 
 
 def _format_kv(args: Attrs) -> Safe:
     keyvals: list[str] = []
 
     for k, v in sorted(args.items()):
-        k = Safe(escape(k).strip())
         if v is None or v is False:
-            pass
-        elif not k:  # special catch for the empty key
-            pass
-        elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
+            continue
+        k = k.strip()
+        if not k:  # special catch for the empty key
+            continue
+        k = escape(k)
+        if v is True:  # boolean attribute e.g. 'hidden', 'disabled'
             keyvals.append(k)
         else:  # kv attribute
             keyvals.append(f'{ k }="{ _format_tok(v) }"')
