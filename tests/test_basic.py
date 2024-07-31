@@ -11,6 +11,10 @@ class BadArg:
 def test_escape():
     assert escape("<div></div>") == "&lt;div&gt;&lt;/div&gt;"
     assert escape(Safe("<div></div>")) == "<div></div>"
+    assert escape("''") == "&#x27;&#x27;"
+    assert escape('""') == "&quot;&quot;"
+    assert escape('&') == "&amp;"
+
     # assert escape(None) == ""
     assert isinstance(escape("<div></div>"), Safe)
     assert isinstance(Safe("<div></div>"), Safe)

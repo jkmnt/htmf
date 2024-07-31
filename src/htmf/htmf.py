@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from typing import Mapping, Iterable, TypeVar, Annotated, Any, TypeGuard
 
-
+import re
 import json
-from html import escape as _html_escape, unescape as _html_unescape
+from html import unescape
 
 Arg = str | bool | None | int | float
 Attrs = Mapping[str, Arg]
 CnArg = str | bool | None
+
+REPLACE_RE = re.compile(r"[&<>\"']")
 
 S = TypeVar("S", bound="Safe")
 SafeOf = Annotated[S, "safe"]
@@ -64,7 +66,7 @@ class Safe(str):
     """
 
     def unescape(self) -> str:
-        return _html_unescape(self)
+        return unescape(self)
 
 
 def mark_as_safe(s: str) -> Safe:
@@ -75,11 +77,18 @@ def mark_as_safe(s: str) -> Safe:
     return Safe(s)
 
 
+def _replacer(m: re.Match[str]):
+    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;"}[m[0]]
+
+
 def escape(s: str) -> Safe:
     """HTML-escape the string making it safe for inclusion in the markup"""
     if isinstance(s, Safe):
         return s
-    return Safe(_html_escape(s))
+    # The re.sub is very fast and won't call _replacer until required.
+    # Moreover, most strings would not require escaping and re.sub will return the original string
+    # avoiding extra mem allocation.
+    return Safe(REPLACE_RE.sub(_replacer, s))
 
 
 def markup(s: str) -> Safe:
