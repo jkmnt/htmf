@@ -16,11 +16,17 @@ SafeOf = Annotated[S, "safe"]
 
 
 INT_OR_FLOAT = (int, float)
-REPLACE_RE = re.compile(r"[&<>\"']")
+REPLACE_RE = re.compile(r"""[&<>"']""")
 
 
 def _replacer(m: re.Match[str]):
-    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;"}[m[0]]
+    return {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+    }[m[0]]
 
 
 # The re.sub is very fast and won't call _replacer until strictly needed.
