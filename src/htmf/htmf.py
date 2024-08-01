@@ -100,8 +100,8 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
             append(arg)
         elif isinst(arg, _str):
             append(esc(arg))
-        elif isinst(arg, number):
-            append(esc(_str(arg)))
+        elif isinst(arg, number):   # rendered numbers should contain no html-unsafe chars
+            append(_str(arg))
         else:  # must be iterable
             try:
                 for sub in arg:
@@ -112,7 +112,7 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
                     elif isinst(sub, _str):
                         append(esc(sub))
                     elif isinst(sub, number):
-                        append(esc(_str(sub)))
+                        append(_str(sub))
             except TypeError:
                 pass
 
@@ -141,7 +141,6 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     esc = _html_escape
     isinst = isinstance
     safe = Safe
-    _str = str
     number = INT_OR_FLOAT
 
     for k, v in sorted(args.items()):
@@ -161,7 +160,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
             elif isinst(v, str):
                 append(f'{ k }="{ esc(v) }"')
             elif isinst(v, number):
-                append(f'{ k }="{ esc(_str(v)) }"')
+                append(f'{ k }="{ v }"')
 
     return safe(" ".join(keyvals))
 
