@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Mapping, Iterable, TypeVar, Annotated, Any, TypeGuard
+from typing import Mapping, Iterable, TypeVar, Annotated, Any
 
 import re
 import json
@@ -10,50 +10,91 @@ Arg = str | bool | None | int | float
 Attrs = Mapping[str, Arg]
 CnArg = str | bool | None
 
-REPLACE_RE = re.compile(r"[&<>\"']")
-
 S = TypeVar("S", bound="Safe")
 SafeOf = Annotated[S, "safe"]
 """Generic annotation to mark NewType(T, Safe) as safe for linter"""
 
 
-def _format_tok(tok: str | int | float) -> Safe:
-    return escape(tok if isinstance(tok, str) else str(tok))
+INT_OR_FLOAT = (int, float)
+REPLACE_RE = re.compile(r"[&<>\"']")
+
+# helpers
+
+
+def _replacer(m: re.Match[str]):
+    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;"}[m[0]]
+
+
+# The re.sub is very fast and won't call _replacer until required.
+# Moreover, most strings would not require escaping and re.sub will return the original string
+# avoiding extra mem allocation.
+def _html_escape(s: str) -> str:
+    return REPLACE_RE.sub(_replacer, s)
 
 
 def _format_kv(args: Attrs) -> Safe:
     keyvals: list[str] = []
 
+    append = keyvals.append
+    esc = _html_escape
+    isinst = isinstance
+    safe = Safe
+    _str = str
+    number = INT_OR_FLOAT
+
     for k, v in sorted(args.items()):
-        k = Safe(escape(k).strip())
         if v is None or v is False:
             pass
-        elif not k:  # special catch for the empty key
-            pass
-        elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
-            keyvals.append(k)
-        else:  # kv attribute
-            keyvals.append(f'{ k }="{ _format_tok(v) }"')
+        else:
+            if not isinst(k, safe):
+                k = esc(k)
+            k = k.strip()
 
-    return Safe(" ".join(keyvals))
+            if not k:  # special catch for the empty key
+                pass
+            elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
+                append(k)
+            elif isinst(v, safe):
+                append(f'{ k }="{ v }"')
+            elif isinst(v, str):
+                append(f'{ k }="{ esc(v) }"')
+            elif isinst(v, number):
+                append(f'{ k }="{ esc(_str(v)) }"')
+
+    return safe(" ".join(keyvals))
 
 
-def _join_truthy_strings(*args: (CnArg | Iterable[CnArg]), sep: str) -> Safe:
+def _join_truthy_cnargs(*args: (CnArg | Iterable[CnArg]), sep: str) -> Safe:
     toks: list[str] = []
+    append = toks.append
+    esc = _html_escape
+    isinst = isinstance
+    safe = Safe
+    _str = str
 
     for arg in args:
-        if isinstance(arg, str):
-            toks.append(escape(arg))
-        elif isinstance(arg, Iterable):
-            toks.extend(escape(f) for f in arg if isinstance(f, str))
+        if not arg or arg is True:
+            pass
+        elif isinst(arg, safe):
+            append(arg)
+        elif isinst(arg, _str):
+            append(esc(arg))
+        else:
+            try:
+                for sub in arg:
+                    if not arg or arg is True:
+                        pass
+                    elif isinst(sub, safe):
+                        append(sub)
+                    elif isinst(sub, _str):
+                        append(esc(sub))
+            except TypeError:
+                pass
 
-    return Safe(sep.join([name for tok in toks if (name := tok.strip())]))
+    return safe(sep.join([name for tok in toks if (name := tok.strip())]))
 
 
-def _should_be_rendered(arg: Any) -> TypeGuard[str | int | float]:
-    if arg is True or arg is False:
-        return False
-    return isinstance(arg, (str, int, float))
+#
 
 
 class Safe(str):
@@ -77,18 +118,11 @@ def mark_as_safe(s: str) -> Safe:
     return Safe(s)
 
 
-def _replacer(m: re.Match[str]):
-    return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;"}[m[0]]
-
-
 def escape(s: str) -> Safe:
     """HTML-escape the string making it safe for inclusion in the markup"""
     if isinstance(s, Safe):
         return s
-    # The re.sub is very fast and won't call _replacer until required.
-    # Moreover, most strings would not require escaping and re.sub will return the original string
-    # avoiding extra mem allocation.
-    return Safe(REPLACE_RE.sub(_replacer, s))
+    return Safe(_html_escape(s))
 
 
 def markup(s: str) -> Safe:
@@ -110,15 +144,42 @@ def text(*args: Arg | Iterable[Arg]) -> Safe:
 
     Returns the single string of values joined.
     """
-    texts: list[str] = []
+
+    # unrolled and inlined to squieeze the marginal extra performance
+
+    toks: list[str] = []
+
+    append = toks.append
+    esc = _html_escape
+    isinst = isinstance
+    safe = Safe
+    number = INT_OR_FLOAT
+    _str = str
 
     for arg in args:
-        if _should_be_rendered(arg):
-            texts.append(_format_tok(arg))
-        elif isinstance(arg, Iterable):
-            texts.extend(_format_tok(subarg) for subarg in arg if _should_be_rendered(subarg))
+        if arg is True or arg is False or arg is None:
+            pass
+        elif isinst(arg, safe):
+            append(arg)
+        elif isinst(arg, _str):
+            append(esc(arg))
+        elif isinst(arg, number):
+            append(esc(_str(arg)))
+        else:  # iterable
+            try:
+                for sub in arg:
+                    if sub is True or sub is False or sub is None:
+                        pass
+                    elif isinst(sub, safe):
+                        append(sub)
+                    elif isinst(sub, _str):
+                        append(esc(sub))
+                    elif isinst(sub, number):
+                        append(esc(_str(sub)))
+            except TypeError:
+                pass
 
-    return Safe("".join(texts))
+    return safe("".join(toks))
 
 
 def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
@@ -126,7 +187,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     Accepts the dictionary of name-value pairs and/or name-value keywords.
     Keywords override the dictionary.
     Formats the result as the quoted HTML-attributes suitable for direct inclusion into the tags.
-    [EXAMPLE HERE]
+
     - `True` values are rendered as just the name, e.g `hidden`
     - `False` values are discarded
     - string values are rendered as name-value pairs, e.g. `type = "checkbox"`
@@ -144,7 +205,7 @@ def classname(*args: (CnArg | Iterable[CnArg])) -> Safe:
     All `str` classes are flattened and joined into the single (unquoted!) string suitable
     for inclusion into the `class` attribute.
     """
-    return _join_truthy_strings(*args, sep=" ")
+    return _join_truthy_cnargs(*args, sep=" ")
 
 
 def style(s: str) -> Safe:
@@ -186,11 +247,11 @@ def json_attr(val: Mapping[str, Any]) -> Safe:
     """
     JSON-format the attribute and HTML-escape it.
     """
-    return escape(json.dumps(val, separators=(",", ":")))
+    return Safe(_html_escape(json.dumps(val, separators=(",", ":"))))
 
 
 def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe:
     """
     Same as the `classname` but joins string with commas instead of the whitespaces.
     """
-    return _join_truthy_strings(*args, sep=",")
+    return _join_truthy_cnargs(*args, sep=",")
