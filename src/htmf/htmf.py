@@ -18,83 +18,16 @@ SafeOf = Annotated[S, "safe"]
 INT_OR_FLOAT = (int, float)
 REPLACE_RE = re.compile(r"[&<>\"']")
 
-# helpers
-
 
 def _replacer(m: re.Match[str]):
     return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;"}[m[0]]
 
 
-# The re.sub is very fast and won't call _replacer until required.
+# The re.sub is very fast and won't call _replacer until strictly needed.
 # Moreover, most strings would not require escaping and re.sub will return the original string
 # avoiding extra mem allocation.
 def _html_escape(s: str) -> str:
     return REPLACE_RE.sub(_replacer, s)
-
-
-def _format_kv(args: Attrs) -> Safe:
-    keyvals: list[str] = []
-
-    append = keyvals.append
-    esc = _html_escape
-    isinst = isinstance
-    safe = Safe
-    _str = str
-    number = INT_OR_FLOAT
-
-    for k, v in sorted(args.items()):
-        if v is None or v is False:
-            pass
-        else:
-            if not isinst(k, safe):
-                k = esc(k)
-            k = k.strip()
-
-            if not k:  # special catch for the empty key
-                pass
-            elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
-                append(k)
-            elif isinst(v, safe):
-                append(f'{ k }="{ v }"')
-            elif isinst(v, str):
-                append(f'{ k }="{ esc(v) }"')
-            elif isinst(v, number):
-                append(f'{ k }="{ esc(_str(v)) }"')
-
-    return safe(" ".join(keyvals))
-
-
-def _join_truthy_cnargs(*args: (CnArg | Iterable[CnArg]), sep: str) -> Safe:
-    toks: list[str] = []
-    append = toks.append
-    esc = _html_escape
-    isinst = isinstance
-    safe = Safe
-    _str = str
-
-    for arg in args:
-        if not arg or arg is True:
-            pass
-        elif isinst(arg, safe):
-            append(arg)
-        elif isinst(arg, _str):
-            append(esc(arg))
-        else:
-            try:
-                for sub in arg:
-                    if not arg or arg is True:
-                        pass
-                    elif isinst(sub, safe):
-                        append(sub)
-                    elif isinst(sub, _str):
-                        append(esc(sub))
-            except TypeError:
-                pass
-
-    return safe(sep.join([name for tok in toks if (name := tok.strip())]))
-
-
-#
 
 
 class Safe(str):
@@ -120,9 +53,7 @@ def mark_as_safe(s: str) -> Safe:
 
 def escape(s: str) -> Safe:
     """HTML-escape the string making it safe for inclusion in the markup"""
-    if isinstance(s, Safe):
-        return s
-    return Safe(_html_escape(s))
+    return s if isinstance(s, Safe) else Safe(_html_escape(s))
 
 
 def markup(s: str) -> Safe:
@@ -133,7 +64,7 @@ def markup(s: str) -> Safe:
     return Safe(s.strip())
 
 
-def text(*args: Arg | Iterable[Arg]) -> Safe:
+def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
     """
     Basic building block for HTML texts and fragments.
 
@@ -165,7 +96,7 @@ def text(*args: Arg | Iterable[Arg]) -> Safe:
             append(esc(arg))
         elif isinst(arg, number):
             append(esc(_str(arg)))
-        else:  # iterable
+        else:  # must be iterable
             try:
                 for sub in arg:
                     if sub is True or sub is False or sub is None:
@@ -179,7 +110,7 @@ def text(*args: Arg | Iterable[Arg]) -> Safe:
             except TypeError:
                 pass
 
-    return safe("".join(toks))
+    return safe(sep.join(toks))
 
 
 def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
@@ -195,17 +126,74 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
 
     Return the single string of whitespace-separated pairs.
     """
-    return _format_kv((arg | kwargs) if arg else kwargs)
+
+    args = (arg or {}) | kwargs
+
+    keyvals: list[str] = []
+
+    append = keyvals.append
+    esc = _html_escape
+    isinst = isinstance
+    safe = Safe
+    _str = str
+    number = INT_OR_FLOAT
+
+    for k, v in sorted(args.items()):
+        if v is None or v is False:
+            pass
+        else:
+            if not isinst(k, safe):
+                k = esc(k)
+            k = k.strip()
+
+            if not k:  # special catch for the empty key
+                pass
+            elif v is True:  # boolean attribute e.g. 'hidden', 'disabled'
+                append(k)
+            elif isinst(v, safe):
+                append(f'{ k }="{ v }"')
+            elif isinst(v, str):
+                append(f'{ k }="{ esc(v) }"')
+            elif isinst(v, number):
+                append(f'{ k }="{ esc(_str(v)) }"')
+
+    return safe(" ".join(keyvals))
 
 
-def classname(*args: (CnArg | Iterable[CnArg])) -> Safe:
+def classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe:
     """
     Another take on a classic `classnames`.
     The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
     All `str` classes are flattened and joined into the single (unquoted!) string suitable
     for inclusion into the `class` attribute.
     """
-    return _join_truthy_cnargs(*args, sep=" ")
+    toks: list[str] = []
+    append = toks.append
+    esc = _html_escape
+    isinst = isinstance
+    safe = Safe
+    _str = str
+
+    for arg in args:
+        if not arg or arg is True:
+            pass
+        elif isinst(arg, safe):
+            append(arg)
+        elif isinst(arg, _str):
+            append(esc(arg))
+        else:  # must be iterable
+            try:
+                for sub in arg:
+                    if not arg or arg is True:
+                        pass
+                    elif isinst(sub, safe):
+                        append(sub)
+                    elif isinst(sub, _str):
+                        append(esc(sub))
+            except TypeError:
+                pass
+
+    return safe(sep.join([name for tok in toks if (name := tok.strip())]))
 
 
 def style(s: str) -> Safe:
@@ -254,4 +242,4 @@ def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe:
     """
     Same as the `classname` but joins string with commas instead of the whitespaces.
     """
-    return _join_truthy_cnargs(*args, sep=",")
+    return classname(*args, sep=",")
