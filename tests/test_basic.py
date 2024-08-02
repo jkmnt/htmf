@@ -1,7 +1,6 @@
 # import pytest
 
-from htmf import text, Safe, markup, classname, attr, csv_attr, script, json_attr
-from htmf.htmf import escape
+from htmf import text, Safe, markup, classname, attr, csv_attr, script, json_attr, escape
 
 
 class BadArg:

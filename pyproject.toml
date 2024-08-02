@@ -18,6 +18,8 @@ dynamic = ["version", "description"]
 [project.urls]
 Home = "https://github.com/jkmnt/htmf"
 
+[tool.flit.sdist]
+exclude = ["doc/", "tests/", "soups.png"]
 
 [tool.ruff]
 line-length = 120
