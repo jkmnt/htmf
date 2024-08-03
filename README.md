@@ -1,4 +1,4 @@
-![](logo_small.png)
+![](docs/docs/logo_small.png)
 
 # HTML in Python f-strings
 
@@ -23,7 +23,7 @@ pip install htmf
 ```
 
 ## Working example
-![example](soups.png)
+![example](docs/docs/soups.png)
 
 <sub>Github markdown doesn't support the syntax highlight for htmf (yet :-), so it's presented as an image here.
 </sub>
