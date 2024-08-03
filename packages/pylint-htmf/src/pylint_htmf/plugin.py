@@ -452,7 +452,7 @@ class HtmfChecker(BaseChecker):
 
         markup_node = call.args[0]
 
-        if isinstance(markup_node, JoinedStr) or (isinstance(markup_node, Const) and isinstance(markup_node, str)):
+        if isinstance(markup_node, JoinedStr) or (isinstance(markup_node, Const) and isinstance(markup_node.value, str)):
             file = call.root().file
             logger.info(f"Checking markup {file}:{markup_node.lineno}")
             scopes = extract_scopes_comment(call, self._update_src_cache(file)) if file else []
@@ -490,7 +490,7 @@ class HtmfChecker(BaseChecker):
                 parser.parse(text)
             else:
                 elements = parser.parseFragment(text)
-                if not elements:
+                if elements is None or len(elements) == 0:
                     self.add_message(msgid="htmf-bad-markup", args="No elements found", node=node)
                 elif len(elements) != 1 and not self.linter.config.htmf_allow_flat_markup:
                     self.add_message(msgid="htmf-bad-markup", args="Multiple elements found", node=node)
