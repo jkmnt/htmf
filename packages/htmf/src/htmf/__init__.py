@@ -8,7 +8,7 @@ __version__ = "0.2.0.dev1"
 from typing import Mapping, Iterable, TypeVar, Annotated, Any
 
 import re
-import json
+import json as _json
 from html import unescape
 
 
@@ -43,8 +43,8 @@ SafeOf = Annotated[S, "safe"]
 """Generic annotation to mark NewType(T, Safe) as safe for linter"""
 
 
-INT_OR_FLOAT = (int, float)
-REPLACE_RE = re.compile(r"""[&<>"']""")
+_INT_OR_FLOAT = (int, float)
+_REPLACE_RE = re.compile(r"""[&<>"']""")
 
 
 def _replacer(m: re.Match[str]):
@@ -61,7 +61,7 @@ def _replacer(m: re.Match[str]):
 # Moreover, most strings would not require escaping and re.sub will return the original string
 # avoiding extra mem allocation.
 def _html_escape(s: str) -> str:
-    return REPLACE_RE.sub(_replacer, s)
+    return _REPLACE_RE.sub(_replacer, s)
 
 
 class Safe(str):
@@ -118,7 +118,7 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
     esc = _html_escape
     isinst = isinstance
     safe = Safe
-    number = INT_OR_FLOAT
+    number = _INT_OR_FLOAT
     _str = str
 
     for arg in args:
@@ -169,7 +169,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     esc = _html_escape
     isinst = isinstance
     safe = Safe
-    number = INT_OR_FLOAT
+    number = _INT_OR_FLOAT
 
     for k, v in sorted(args.items()):
         if v is None or v is False:
@@ -268,7 +268,7 @@ def json_attr(val: Mapping[str, Any]) -> Safe:
     """
     JSON-format the attribute and HTML-escape it.
     """
-    return Safe(_html_escape(json.dumps(val, separators=(",", ":"))))
+    return Safe(_html_escape(_json.dumps(val, separators=(",", ":"))))
 
 
 def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe:

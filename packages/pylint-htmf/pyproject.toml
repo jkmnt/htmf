@@ -19,6 +19,8 @@ dependencies = ["html5lib >=1.1"]
 [project.urls]
 Home = "https://github.com/jkmnt/htmf"
 
+[tool.flit.sdist]
+exclude = ["tests/"]
 
 [tool.ruff]
 line-length = 120

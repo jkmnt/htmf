@@ -89,7 +89,7 @@ class Document(NodeVisitor):
             for f in self.formatters:
                 if not more:
                     break
-                if f.trigger.match(name):
+                if f.trigger.fullmatch(name):
                     if isinstance(node.args[0], Constant) and isinstance(node.args[0].value, str) and "c" in f.applies_to:
                         self.handle_literal(node.args[0], formatter=f)
                         more = False

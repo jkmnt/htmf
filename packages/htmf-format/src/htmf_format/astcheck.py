@@ -29,7 +29,7 @@ class FlattenConstants(NodeTransformer):
         name = extract_name(node)
         if name and node.args:
             for f in self.formatters:
-                if not f.trigger.match(name):
+                if not f.trigger.fullmatch(name):
                     continue
                 if isinstance(node.args[0], Constant) and isinstance(node.args[0].value, str) and "c" in f.applies_to:
                     gvres = self.handle_literal(node.args[0])

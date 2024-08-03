@@ -1,0 +1,6 @@
+# A bare minimum pylintrc used for the functional tests that don't specify
+# their own settings.
+
+[MESSAGES CONTROL]
+disable=all
+enable=htmf-checker

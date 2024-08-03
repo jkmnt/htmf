@@ -250,12 +250,14 @@ class ExprChecker:
             name = extract_func_name(call)
             if not name:
                 return False
-            return bool(self._whitelisted_funcs.match(name))
+            return bool(self._whitelisted_funcs.fullmatch(name))
         return False
 
     @trace_calls
-    def is_safe_literal(self, const: Const):
+    def is_safe_literal(self, const: Const, none_is_ok: bool):
         constant = const.value
+        if none_is_ok and constant is None:
+            return True
         if not isinstance(constant, str):
             return False
         return html.escape(constant) == constant
@@ -265,9 +267,9 @@ class ExprChecker:
         if not type:
             return False
         if none_is_ok:
-            return all(tp is None or self._safe_type.match(tp) for tp in type)
+            return all(tp is None or self._safe_type.fullmatch(tp) for tp in type)
         else:
-            return all(tp and self._safe_type.match(tp) for tp in type)
+            return all(tp and self._safe_type.fullmatch(tp) for tp in type)
 
     @trace_calls
     def is_assignname_resolves_to_safe(self, assign: AssignName, *, none_is_ok: bool):
@@ -281,9 +283,7 @@ class ExprChecker:
         parent = assign.parent
 
         if isinstance(parent, Assign):
-            return isinstance(parent.value, ALLOWED_VALS) and self.is_val_resolves_to_safe(
-                parent.value, none_is_ok=none_is_ok
-            )
+            return isinstance(parent.value, ALLOWED_VALS) and self.is_val_resolves_to_safe(parent.value, none_is_ok=none_is_ok)
         if isinstance(parent, Arguments):
             return self.is_safetype(extract_arg_types(assign, parent), none_is_ok=none_is_ok)
         if isinstance(parent, AnnAssign):
@@ -299,8 +299,7 @@ class ExprChecker:
         if not assigns:
             return False
         return all(
-            (isinstance(assign, AssignName) and self.is_assignname_resolves_to_safe(assign, none_is_ok=none_is_ok))
-            for assign in assigns
+            (isinstance(assign, AssignName) and self.is_assignname_resolves_to_safe(assign, none_is_ok=none_is_ok)) for assign in assigns
         )
 
     @trace_calls
@@ -317,7 +316,7 @@ class ExprChecker:
         if isinstance(value, Call):
             return self.is_safe_func_call(value, none_is_ok=none_is_ok)
         if isinstance(value, Const):
-            return self.is_safe_literal(value)
+            return self.is_safe_literal(value, none_is_ok=none_is_ok)
         if isinstance(value, IfExp):
             return (
                 isinstance(value.body, ALLOWED_VALS)
@@ -326,14 +325,13 @@ class ExprChecker:
                 and self.is_val_resolves_to_safe(value.orelse, none_is_ok=none_is_ok)
             )
         if isinstance(value, BoolOp) and value.op == "or":
-            if len(value.values) != 2:
+            if len(value.values) < 2:
                 return False
-            left, right = value.values
+            *lefts, last = value.values
             return (
-                isinstance(left, ALLOWED_VALS)
-                and self.is_val_resolves_to_safe(left, none_is_ok=True)
-                and isinstance(right, ALLOWED_VALS)
-                and self.is_val_resolves_to_safe(right, none_is_ok=none_is_ok)
+                all(isinstance(left, ALLOWED_VALS) and self.is_val_resolves_to_safe(left, none_is_ok=True) for left in lefts)
+                and isinstance(last, ALLOWED_VALS)
+                and self.is_val_resolves_to_safe(last, none_is_ok=none_is_ok)
             )
         if isinstance(value, Name):
             return self.is_name_resolves_to_safe(value, none_is_ok=none_is_ok)
@@ -465,10 +463,10 @@ class HtmfChecker(BaseChecker):
                             self.add_message(msgid="htmf-unsafe-fexpression", args=fv.as_string(), node=fv)
 
     def is_markup_func(self, name: str):
-        return bool(self._markup_func.match(name))
+        return bool(self._markup_func.fullmatch(name))
 
     def is_document_func(self, name: str):
-        return bool(self._document_func.match(name))
+        return bool(self._document_func.fullmatch(name))
 
     # checker stuff
     def check_markup(self, node: JoinedStr | Const, scopes: list[str], *, is_document=False):
