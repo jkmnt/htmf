@@ -1,0 +1,17 @@
+site_name: htmf - HTML in Python f-strings
+nav:
+ - Intro: index.md
+ - Motivation: rant.md
+ - Utilities: api.md
+ - Linting: lint.md
+ - Formatting: format.md
+ - Highlighting: highlight.md
+theme:
+  name: readthedocs
+  highlightjs: false
+repo_url: https://github.com/jkmnt/htmf
+edit_uri: ''
+plugins: []
+extra_css:
+  - extra.css
+
