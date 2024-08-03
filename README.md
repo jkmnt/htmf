@@ -1,14 +1,16 @@
-# htmf - HTML in Python f-strings
+![](doc/docs/logo_small.png)
 
-## introduction
+# HTML in Python f-strings
 
-htmf is a collection of utilities for writing HTML in Python f-strings. It works great for HTML-over-the-wire and composable typed UI components.
+## Introduction
 
+htmf is a collection of utilities for writing HTML in Python f-strings. It works great for typed UI components.
 
 Also it is the suite of tools to boost the developer experience:
-- Pylint plugin checking if expressions are HTML-safe and markup is not soup
-- VSCode syntax highlighter
-- Code formatter
+
+- Pylint [plugin](lint.md) checking if expressions are HTML-safe and markup is not soup
+- VSCode [syntax highlighter](highlight.md)
+- HTML [formatter](format.md)
 
 ---
 Read the [documentation]()
@@ -16,7 +18,7 @@ Read the [documentation]()
 ---
 
 ## Installation
-```
+```shell
 pip install htmf
 ```
 
