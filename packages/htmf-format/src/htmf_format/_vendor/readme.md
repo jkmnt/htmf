@@ -1,0 +1,1 @@
+This is fork of [jsbeautifier](https://github.com/beautifier/js-beautify) code with HTML formatter ported to the Python. It's vendored here unless the jsbeautifier decides to merge the HTML formatter pull request.

@@ -1,4 +1,4 @@
-![](doc/docs/logo_small.png)
+![](logo_small.png)
 
 # HTML in Python f-strings
 
