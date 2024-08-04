@@ -1,0 +1,618 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jkmnt.github.io/htmf/format/">
+      
+      
+        <link rel="prev" href="../lint/">
+      
+      
+        <link rel="next" href="../highlight/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Formatting - htmf - HTML in Python f-strings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#formatting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-header__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            htmf - HTML in Python f-strings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Formatting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-nav__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    htmf - HTML in Python f-strings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Motivation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Formatting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Formatting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intallation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highlight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Highlighting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="formatting">Formatting</h1>
+<p>HTML formatting is useful not only for aestetic, but also for reducing git diff noise. So htmf supplies the formatter tool based on well-known <a href="https://github.com/beautifier/js-beautify">js-beautify</a>. The tool is able to format HTML, JS and CSS.</p>
+<h2 id="intallation">Intallation</h2>
+<div class="language-text copy highlight"><pre><span></span><code>pip install htmf-format
+</code></pre></div>
+<h2 id="usage">Usage</h2>
+<div class="language-text highlight"><pre><span></span><code>htmf-format &lt;file or dir&gt;
+</code></pre></div>
+<p>htmf-format borrows some conventions (and code :-) from the <a href="https://github.com/psf/black">Black</a> formatter. So you will find the output quite familiar.</p>
+<p>Tool formats strings found in <code>ht.m()</code>, <code>ht.script()</code>, <code>ht.stylesheet()</code> wrappers. Contents of <code>&lt;script&gt;</code> and <code>&lt;style&gt;</code> HTML tags found in <code>ht.m()</code> are formatted too. Wrappers names may be configured.</p>
+<p>By default, htmf-format compares the AST before and after formatting to be sure the only changes are the whitespaces and line breaks in markup.</p>
+<p>htmf-format is not opinionated and exposes most options of the js-beautify.</p>
+<h2 id="example">Example</h2>
+<p>Before</p>
+<!--
+ht.m(
+    f"""
+    <div class="row"    >       <div class="col-md-6">
+{ ht.t(memo) }
+        <div id="up-wizard-progress">
+    &lt;!-- progress --&gt;
+            </div>
+                    <hr />
+            <div id="up-wizard-page"    hx-get="{ url_for('.upload', file=file) }"
+                        hx-trigger="load"
+                    hx-target="this">
+&lt!-- .upload target --&gt;
+        </div>
+
+
+            </div>     </div  >
+    """
+)
+ -->
+<div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"""</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">class</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"row"</span><span style="color: #000000;"> &nbsp; &nbsp;</span><span style="color: #800000;">&gt;</span><span style="color: #000000;"> &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">class</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"col-md-6"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">t</span><span style="color: #000000;">(memo) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">id</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"up-wizard-progress"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #008000;">&lt;!-- progress --&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;hr</span><span style="color: #000000;"> </span><span style="color: #800000;">/&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">id</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"up-wizard-page"</span><span style="color: #000000;"> &nbsp; &nbsp;</span><span style="color: #ff0000;">hx-get</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> url_for(</span><span style="color: #a31515;">'.upload'</span><span style="color: #000000;">, </span><span style="color: #001080;">file</span><span style="color: #000000;">=</span><span style="color: #001080;">file</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #0000ff;">"</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #ff0000;">hx-trigger</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"load"</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #ff0000;">hx-target</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"this"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #008000;">&lt;!-- .upload target --&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><br><br><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #000000;"> &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div</span><span style="color: #000000;"> &nbsp;</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #a31515;">"""</span></div><div><span style="color: #000000;">)</span></div></div>
+
+<p>After <code>htmf-format -w 88  --wrap-attributes=force-aligned --max-preserve-newlines=0 &lt;file&gt;</code></p>
+<!--
+ht.m(
+    f"""
+    <div class="row">
+        <div class="col-md-6">
+            { ht.t(memo) }
+            <div id="up-wizard-progress">
+                &lt;!-- progress --&gt;
+            </div>
+            <hr />
+            <div id="up-wizard-page"
+                 hx-get="{ url_for('.upload', file=file) }"
+                 hx-trigger="load"
+                 hx-target="this">
+                &lt;!-- .upload target --&gt;
+            </div>
+        </div>
+    </div>
+    """
+)
+ -->
+<div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"""</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">class</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"row"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">class</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"col-md-6"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">t</span><span style="color: #000000;">(memo) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">id</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"up-wizard-progress"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #008000;">&lt;!-- progress --&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;hr</span><span style="color: #000000;"> </span><span style="color: #800000;">/&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">id</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"up-wizard-page"</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: #ff0000;">hx-get</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> url_for(</span><span style="color: #a31515;">'.upload'</span><span style="color: #000000;">, </span><span style="color: #001080;">file</span><span style="color: #000000;">=</span><span style="color: #001080;">file</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #0000ff;">"</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: #ff0000;">hx-trigger</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"load"</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="color: #ff0000;">hx-target</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"this"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #008000;">&lt;!-- .upload target --&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #a31515;">"""</span></div><div><span style="color: #000000;">)</span></div></div>
+
+<h2 id="options">Options</h2>
+<p>Dump of <code>htmf-format --help</code> follows:</p>
+<div class="language-text highlight"><pre><span></span><code>Basic options:
+  -w, --wrap-line-length INTEGER  Wrap lines [default: unlimited]
+  -q, --quiet                     Stop emitting all non-critical output. Error
+                                  messages will still be emitted
+  -v, --verbose                   Emit messages about files that were not
+                                  changed
+  --check                         Don&#39;t write the files back, just return the
+                                  status. Return code 0 means nothing would
+                                  change. Return code 1 means some files would
+                                  be reformatted. Return code 123 means there
+                                  was an internal error.
+  --ast-check / --no-ast-check    Perform AST check after formatting the code
+                                  [default: (yes)]
+  --html / --no-html              Enable HTML formatting  [default: (yes)]
+  --js / --no-js                  Enable JS formatting  [default: (yes)]
+  --css / --no-css                Enable CSS formatting  [default: (yes)]
+  --html-trigger RE               Regex for detecting the HTML wrapper
+                                  function  [default: htmf\.m|htmf\.markup|ht\
+                                  .m|ht\.markup|htmf\.document|ht\.document]
+  --js-trigger RE                 Regex for detecting the JS wrapper function
+                                  [default: htmf\.script|ht\.script|htmf\.hand
+                                  ler|ht\.handler]
+  --css-trigger RE                Regex for detecting the CSS wrapper function
+                                  [default: htmf\.stylesheet|ht\.stylesheet|ht
+                                  mf\.style|ht\.style]
+
+Common beautifiers options:
+  --preserve-newlines / --no-preserve-newlines
+                                  Preserve line-breaks  [default: preserve-
+                                  newlines]
+  --indent-size INTEGER           Indentation size  [default: 4]
+  --end-with-newline              End output with newline
+  --indent-empty-lines            Keep indentation on empty lines
+
+HTML beautifier options:
+  --indent-inner-html             Indent content of &lt;html&gt;
+  --indent-body-inner-html / --no-indent-body-inner-html
+                                  Indent content of &lt;body&gt;  [default: indent-
+                                  body-inner-html]
+  --indent-head-inner-html / --no-indent-head-inner-html
+                                  Indent content of &lt;head&gt;  [default: indent-
+                                  head-inner-html]
+  --indent-scripts [keep|separate|normal]
+                                  [default: normal]
+  --wrap-attributes [auto|force|force-aligned|force-expand-multiline|aligned-multiple|preserve|preserve-aligned]
+                                  Wrap html tag attributes to new lines
+                                  [default: preserve-aligned]
+  --wrap-attributes-min-attrs INTEGER
+                                  Minimum number of html tag attributes for
+                                  force wrap attribute options  [default: 2]
+  --wrap-attributes-indent-size INTEGER
+                                  Indent wrapped tags to after N characters
+                                  [default: --indent-size]
+  --max-preserve-newlines INTEGER
+                                  Number of line-breaks to be preserved in one
+                                  chunk  [default: 1]
+  --unformatted TEXT              List of tags (defaults to inline) that
+                                  should not be reformatted
+  --content-unformatted TEXT      List of tags (defaults to pre, textarea)
+                                  whose content should not be reformatted
+  --extra-liners TEXT             List of tags (defaults to [head,body,html])
+                                  that should have an extra newline
+  --unformatted-content-delimiter TEXT
+                                  Keep text content together between this
+                                  string
+
+JS beautifier options:
+  --brace-style [collapse|expand|end-expand|none|preserve-inline]
+                                  Brace style  [default: collapse, preserve-
+                                  inline]
+  --space-in-paren                Add padding spaces within paren, ie. f( a, b
+                                  )
+  --space-in-empty-paren          Add a single space inside empty paren, ie.
+                                  f( )
+  --jslint-happy                  Enable jslint-stricter mode
+  --space-after-anon-function     Add a space before an anonymous function&#39;s
+                                  parens, ie. function ()
+  --space-after-named-function    Add a space before a named function&#39;s
+                                  parens, ie. function example ()
+  --unindent-chained-methods      Don&#39;t indent chained method calls
+  --break-chained-methods         Break chained method calls across subsequent
+                                  lines
+  --keep-array-indentation        Preserve array indentation
+  --unescape-strings              Decode printable characters encoded in xNN
+                                  notation
+  --e4x                           Pass E4X xml literals through untouched
+  --comma-first                   Put commas at the beginning of new line
+                                  instead of end
+  --operator-position [before-newline|after-newline|preserve-newline]
+                                  Set operator position  [default: before-
+                                  newline]
+
+CSS beautifier options:
+  --selector-separator-newline / --no-selector-separator-newline
+                                  Print each selector on a separate line
+                                  [default: selector-separator-newline]
+  --newline-between-rules / --no-newline-between-rules
+                                  Print empty line between rules  [default:
+                                  newline-between-rules]
+  --space-around-combinator       Print spaces around combinator
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

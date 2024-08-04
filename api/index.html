@@ -1,0 +1,744 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jkmnt.github.io/htmf/api/">
+      
+      
+        <link rel="prev" href="../rant/">
+      
+      
+        <link rel="next" href="../lint/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Utilities - htmf - HTML in Python f-strings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#utilities" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-header__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            htmf - HTML in Python f-strings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Utilities
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-nav__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    htmf - HTML in Python f-strings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Motivation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#markup" class="md-nav__link">
+    <span class="md-ellipsis">
+      markup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#text" class="md-nav__link">
+    <span class="md-ellipsis">
+      text
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="text">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common patterns
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attr" class="md-nav__link">
+    <span class="md-ellipsis">
+      attr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classname" class="md-nav__link">
+    <span class="md-ellipsis">
+      classname
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#style" class="md-nav__link">
+    <span class="md-ellipsis">
+      style
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handler" class="md-nav__link">
+    <span class="md-ellipsis">
+      handler
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stylesheet" class="md-nav__link">
+    <span class="md-ellipsis">
+      stylesheet
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#script" class="md-nav__link">
+    <span class="md-ellipsis">
+      script
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#json_attr" class="md-nav__link">
+    <span class="md-ellipsis">
+      json_attr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv_attr" class="md-nav__link">
+    <span class="md-ellipsis">
+      csv_attr
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mark_as_safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      mark_as_safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safe
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safeof" class="md-nav__link">
+    <span class="md-ellipsis">
+      SafeOf
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highlight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Highlighting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="utilities">Utilities</h1>
+<h2 id="markup">markup</h2>
+<p>alias: <code>m</code>, <code>document</code></p>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">markup</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Wrapper for the markup. Triggers the HTML-syntax highlight and linting. Strips the whitespaces and marks the string as safe</p>
+<!--
+>>> ht.m(f" <div>{ ht.m('  <span>Content</span>') }</div>  ")
+'<div><span>Content</span></div>'
+-->
+<div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.m(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #000000;"> </span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> ht.m(</span><span style="color: #a31515;">'</span><span style="color: #000000;"> &nbsp;</span><span style="color: #800000;">&lt;span&gt;</span><span style="color: #000000;">Content</span><span style="color: #800000;">&lt;/span&gt;</span><span style="color: #a31515;">'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #000000;"> &nbsp;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&lt;div&gt;&lt;span&gt;Content&lt;/span&gt;&lt;/div&gt;'</span></div></div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>linter treats <code>document</code> as the root HTML document and expects the <code>&lt;!DOCTYPE html&gt;&lt;html&gt;...&lt;/html&gt;</code> tags. <code>m</code> is treated as the fragment.</p>
+</div>
+<hr />
+<h2 id="text">text</h2>
+<p>alias: <code>t</code></p>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">text</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Arg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Arg</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Basic building block for HTML texts and fragments.</p>
+<p>The arguments may be <code class="language-python highlight"><span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span></code> or iterables of such types.
+Strings are escaped unless marked as Safe.
+Numbers are stringified. Everything else is discarded.</p>
+<p>Returns the single string of concatenated arguments</p>
+<!-- >>> ht.t('123', '456', '789', ['a', 'b', 'c']):
+'123456789abc'
+
+>>> ht.t(True, False, None, [0, '1', False, '2'])
+'012'
+
+>>> ht.t('<div>')
+'&lt;div&gt;'
+
+>>> ht.t(Safe('<div>'))
+'<div>' -->
+
+<div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span><span style="color: #a31515;">'123'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'456'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'789'</span><span style="color: #000000;">, [</span><span style="color: #a31515;">'a'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'b'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'c'</span><span style="color: #000000;">]):</span></div><div><span style="color: #a31515;">'123456789abc'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span><span style="color: #0000ff;">True</span><span style="color: #000000;">, </span><span style="color: #0000ff;">False</span><span style="color: #000000;">, </span><span style="color: #0000ff;">None</span><span style="color: #000000;">, [</span><span style="color: #098658;">0</span><span style="color: #000000;">, </span><span style="color: #a31515;">'1'</span><span style="color: #000000;">, </span><span style="color: #0000ff;">False</span><span style="color: #000000;">, </span><span style="color: #a31515;">'2'</span><span style="color: #000000;">])</span></div><div><span style="color: #a31515;">'012'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span><span style="color: #a31515;">'&lt;div&gt;'</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&amp;lt;div&amp;gt;'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(Safe(</span><span style="color: #a31515;">'&lt;div&gt;'</span><span style="color: #000000;">))</span></div><div><span style="color: #a31515;">'&lt;div&gt;'</span></div></div>
+
+<p>Using with actual markup</p>
+<!--
+>>> ht.t(
+        ht.m("<h1> H1 </h1>"),
+        truthy_func() and [
+            0 == 1 and ht.m("<h2> H2 </h2>"),
+            "foo" if 1 == 1 else "bar",
+        ],
+    )
+'<h1> H1 </h1>foo'
+-->
+<div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; ht.m(</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;h1&gt;</span><span style="color: #000000;"> H1 </span><span style="color: #800000;">&lt;/h1&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">),</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; truthy_func() </span><span style="color: #af00db;">and</span><span style="color: #000000;"> [</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">0</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #0000ff;">and</span><span style="color: #000000;"> ht.m(</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;h2&gt;</span><span style="color: #000000;"> H2 </span><span style="color: #800000;">&lt;/h2&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">),</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #a31515;">"foo"</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #af00db;">else</span><span style="color: #000000;"> </span><span style="color: #a31515;">"bar"</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; ],</span></div><div><span style="color: #000000;">&nbsp; &nbsp; )</span></div><div><span style="color: #a31515;">'&lt;h1&gt; H1 &lt;/h1&gt;foo'</span></div></div>
+
+<h3 id="common-patterns">Common patterns</h3>
+<ul>
+<li>
+<p>JSX-like conditionals
+    <!--
+        >>> ht.t(
+            1 == 1 and 'a',
+            2 == 3 or 'b',
+            'c' if 4 == 5 else 'd'
+        )
+        'abd'
+    -->
+    <div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> </span><span style="color: #a31515;">'a'</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">2</span><span style="color: #000000;"> == </span><span style="color: #098658;">3</span><span style="color: #000000;"> </span><span style="color: #af00db;">or</span><span style="color: #000000;"> </span><span style="color: #a31515;">'b'</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #a31515;">'c'</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> </span><span style="color: #098658;">4</span><span style="color: #000000;"> == </span><span style="color: #098658;">5</span><span style="color: #000000;"> </span><span style="color: #af00db;">else</span><span style="color: #000000;"> </span><span style="color: #a31515;">'d'</span></div><div><span style="color: #000000;">&nbsp; &nbsp; )</span></div><div><span style="color: #a31515;">'abd'</span></div></div></p>
+</li>
+<li>
+<p>Conditional groups
+    <!--
+    >>> ht.t(
+            1 == 1 and ['a', 'b'],
+            2 != 2 and ['c', 'd'],
+            ['e', 'f'] if 3 == 3 else ['g', 'h'],
+            4 == 4 and ['i', 5 == 5 and 'j']
+        )
+    'abefij'
+    -->
+    <div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> [</span><span style="color: #a31515;">'a'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'b'</span><span style="color: #000000;">],</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">2</span><span style="color: #000000;"> != </span><span style="color: #098658;">2</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> [</span><span style="color: #a31515;">'c'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'d'</span><span style="color: #000000;">],</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; [</span><span style="color: #a31515;">'e'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'f'</span><span style="color: #000000;">] </span><span style="color: #af00db;">if</span><span style="color: #000000;"> </span><span style="color: #098658;">3</span><span style="color: #000000;"> == </span><span style="color: #098658;">3</span><span style="color: #000000;"> </span><span style="color: #af00db;">else</span><span style="color: #000000;"> [</span><span style="color: #a31515;">'g'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'h'</span><span style="color: #000000;">],</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">4</span><span style="color: #000000;"> == </span><span style="color: #098658;">4</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> [</span><span style="color: #a31515;">'i'</span><span style="color: #000000;">, </span><span style="color: #098658;">5</span><span style="color: #000000;"> == </span><span style="color: #098658;">5</span><span style="color: #000000;"> </span><span style="color: #0000ff;">and</span><span style="color: #000000;"> </span><span style="color: #a31515;">'j'</span><span style="color: #000000;">]</span></div><div><span style="color: #000000;">&nbsp; &nbsp; )</span></div><div><span style="color: #a31515;">'abefij'</span></div></div></p>
+</li>
+<li>
+<p>Looping
+    <!--
+    >>> ht.t(
+            [c for c in 'abcd'],
+            [c for c in 'efgh' if c == 'f']
+        )
+    'abcdf'
+    -->
+    <div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.t(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; [c </span><span style="color: #af00db;">for</span><span style="color: #000000;"> c </span><span style="color: #af00db;">in</span><span style="color: #000000;"> </span><span style="color: #a31515;">'abcd'</span><span style="color: #000000;">],</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; [c </span><span style="color: #af00db;">for</span><span style="color: #000000;"> c </span><span style="color: #af00db;">in</span><span style="color: #000000;"> </span><span style="color: #a31515;">'efgh'</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> c == </span><span style="color: #a31515;">'f'</span><span style="color: #000000;">]</span></div><div><span style="color: #000000;">&nbsp; &nbsp; )</span></div><div><span style="color: #a31515;">'abcdf'</span></div></div></p>
+</li>
+<li>
+<p>Looping with generator expression (less braces)</p>
+<p><!--
+ht.t(thing for thing in things if thing.visible)
+-->
+<div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">t</span><span style="color: #000000;">(</span><span style="color: #001080;">thing</span><span style="color: #000000;"> </span><span style="color: #af00db;">for</span><span style="color: #000000;"> </span><span style="color: #001080;">thing</span><span style="color: #000000;"> </span><span style="color: #af00db;">in</span><span style="color: #000000;"> things </span><span style="color: #af00db;">if</span><span style="color: #000000;"> </span><span style="color: #001080;">thing</span><span style="color: #000000;">.visible)</span></div></div></p>
+</li>
+</ul>
+<hr />
+<h2 id="attr">attr</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">attr</span><span class="p">(</span><span class="n">arg</span><span class="p">:</span> <span class="n">Attrs</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Arg</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Formats arguments as the quoted HTML-attributes suitable for direct inclusion into the tags.
+Accepts the dictionary of name-value pairs and/or name-value keywords.
+Keywords overrides the dictionary.</p>
+<ul>
+<li><code>True</code> values are rendered as just the name, e.g <code>hidden</code></li>
+<li><code>False</code> values are discarded</li>
+<li>strings are rendered as name-value pairs, e.g. <code>type="checkbox"</code></li>
+<li>numbers are interpolated, e.g. <code>tabindex="-1"</code></li>
+</ul>
+<p>Returns the single string of sorted whitespace-separated pairs.</p>
+<!--
+>>> ht.attr(id=12, hidden=True, tabindex=-1)
+'hidden id="12" tabindex="-1"'
+
+>>> ht.attr({'data-user': 'Joe', 'data-user-id': 3}, contenteditable=False)
+'data-user="Joe" data-user-id="3"'
+
+>>> ht.attr({'data-tag': '<div>'} )
+'data-tag="&lt;div&gt;"'
+
+>>> ht.m(f"<div { ht.attr(hidden=True, id=1) }> Text </div>")
+'<div hidden id="1"> Text </div>'
+ -->
+<div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.attr(</span><span style="color: #001080;">id</span><span style="color: #000000;">=</span><span style="color: #098658;">12</span><span style="color: #000000;">, </span><span style="color: #001080;">hidden</span><span style="color: #000000;">=</span><span style="color: #0000ff;">True</span><span style="color: #000000;">, </span><span style="color: #001080;">tabindex</span><span style="color: #000000;">=-</span><span style="color: #098658;">1</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'hidden id="12" tabindex="-1"'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.attr({</span><span style="color: #a31515;">'data-user'</span><span style="color: #000000;">: </span><span style="color: #a31515;">'Joe'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'data-user-id'</span><span style="color: #000000;">: </span><span style="color: #098658;">3</span><span style="color: #000000;">}, </span><span style="color: #001080;">contenteditable</span><span style="color: #000000;">=</span><span style="color: #0000ff;">False</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'data-user="Joe" data-user-id="3"'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.attr({</span><span style="color: #a31515;">'data-tag'</span><span style="color: #000000;">: </span><span style="color: #a31515;">'&lt;div&gt;'</span><span style="color: #000000;">} )</span></div><div><span style="color: #a31515;">'data-tag="&amp;lt;div&amp;gt;"'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.m(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> ht.attr(</span><span style="color: #001080;">hidden</span><span style="color: #000000;">=</span><span style="color: #0000ff;">True</span><span style="color: #000000;">, </span><span style="color: #001080;">id</span><span style="color: #000000;">=</span><span style="color: #098658;">1</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&gt;</span><span style="color: #000000;"> Text </span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&lt;div hidden id="1"&gt; Text &lt;/div&gt;'</span></div></div>
+
+<hr />
+<h2 id="classname">classname</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">classname</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">(</span><span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>htmf's variation of a classic <a href="https://www.npmjs.com/package/classnames">classnames</a>.
+The supplied arguments may be <code class="language-python highlight"><span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span></code> or iterables of such values.
+Class names are flattened and joined into the single (unquoted!) string suitable
+for inclusion into the <code>class</code> attribute. The usage patterns are the same as of <code>t</code>.</p>
+<!--
+>>> ht.classname(
+        'text-blue-400',
+        1 == 0 and 'flex',
+        None,
+        False,
+        1 == 1 and ['mb-1', 'mr-1', 2 == 2 and 'ml-1']
+    )
+'text-blue-400 mb-1 mr-1 ml-1'
+
+>>> ht.m(f'''
+    <div class="{ ht.classname('px-2', 'flex' if 1 == 1 else 'grid') }">
+    </div>''')
+'<div class="px-2 flex"></div>'
+ -->
+<div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.classname(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #a31515;">'text-blue-400'</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">0</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> </span><span style="color: #a31515;">'flex'</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #0000ff;">None</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #0000ff;">False</span><span style="color: #000000;">,</span></div><div><span style="color: #000000;">&nbsp; &nbsp; &nbsp; &nbsp; </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #af00db;">and</span><span style="color: #000000;"> [</span><span style="color: #a31515;">'mb-1'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'mr-1'</span><span style="color: #000000;">, </span><span style="color: #098658;">2</span><span style="color: #000000;"> == </span><span style="color: #098658;">2</span><span style="color: #000000;"> </span><span style="color: #0000ff;">and</span><span style="color: #000000;"> </span><span style="color: #a31515;">'ml-1'</span><span style="color: #000000;">]</span></div><div><span style="color: #000000;">&nbsp; &nbsp; )</span></div><div><span style="color: #a31515;">'text-blue-400 mb-1 mr-1 ml-1'</span></div><br><div><span style="color: #000000;">&gt;&gt;&gt; ht.m(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">'''</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #800000;">&lt;div</span><span style="color: #000000;"> </span><span style="color: #ff0000;">class</span><span style="color: #000000;">=</span><span style="color: #0000ff;">"</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> ht.classname(</span><span style="color: #a31515;">'px-2'</span><span style="color: #000000;">, </span><span style="color: #a31515;">'flex'</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> </span><span style="color: #098658;">1</span><span style="color: #000000;"> == </span><span style="color: #098658;">1</span><span style="color: #000000;"> </span><span style="color: #af00db;">else</span><span style="color: #000000;"> </span><span style="color: #a31515;">'grid'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #0000ff;">"</span><span style="color: #800000;">&gt;</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">'''</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&lt;div class="px-2 flex"&gt;&lt;/div&gt;'</span></div></div>
+
+<hr />
+<h2 id="style">style</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">style</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Wrapper for inline styles intended to be included into the <code>style</code> attribute. HTML-escapes the string. Triggers the CSS-syntax highlight.</p>
+<hr />
+<h2 id="handler">handler</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">handler</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Wrapper for inline javascript event handlers (<code>onlick</code> etc).
+HTML-escapes the string. Triggers the JS-syntax highlight.</p>
+<hr />
+<h2 id="stylesheet">stylesheet</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">stylesheet</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Wrapper for css stylesheet for inclusion into the <code>&lt;style&gt;</code> tag.
+Doing almost nothing.
+Triggers the CSS-syntax highlight and formatting.</p>
+<hr />
+<h2 id="script">script</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">script</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Wrapper for javascript for inclusion into the <code>&lt;script&gt;</code> tag. Escapes <code>&lt;/</code> characters. Triggers the JS-syntax highlight and formatting</p>
+<hr />
+<h2 id="json_attr">json_attr</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">json_attr</span><span class="p">(</span><span class="n">val</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>json.dumps the value and HTML-escape it.</p>
+<hr />
+<h2 id="csv_attr">csv_attr</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">csv_attr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">(</span><span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">]))</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Same as the <code>classname</code> but joins string with commas instead of the whitespaces.</p>
+<hr />
+<h2 id="mark_as_safe">mark_as_safe</h2>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">mark_as_safe</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>Mark the string as safe, promoting it to the Safe class.
+It's the escape hatch if one really need to include some not-to-be escaped string. This is the same as calling the <code>Safe()</code> class constructor, but recognized by linter.</p>
+<hr />
+<h2 id="safe">Safe</h2>
+<p><code class="language-python highlight"><span class="k">class</span> <span class="nc">Safe</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span></code></p>
+<p>Noop subclass of <code>str</code>. Used at runtime to determine if string is already escaped. Used in linting to prove the f-expressions are safe.
+Not intended to be instantiated directly.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>string methods of <code>Safe</code> strings, e.g. <code>strip</code>, <code>join</code>, <code>removeprefix</code>, etc. returns the <code>str</code> (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping.</p>
+</div>
+<hr />
+<h2 id="safeof">SafeOf</h2>
+<p>Generic annotation to help the linter recognize new subtypes of Safe.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

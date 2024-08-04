@@ -1,0 +1,501 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jkmnt.github.io/htmf/rant/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../api/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Motivation - htmf - HTML in Python f-strings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#motivation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-header__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            htmf - HTML in Python f-strings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Motivation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-nav__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    htmf - HTML in Python f-strings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Motivation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Motivation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rethinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rethinking
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expressiveness-of-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      Expressiveness of language
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#separation-of-concernslocality" class="md-nav__link">
+    <span class="md-ellipsis">
+      Separation of concerns/locality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composability" class="md-nav__link">
+    <span class="md-ellipsis">
+      Composability
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highlight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Highlighting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="motivation">Motivation</h1>
+<p>Why one would ever want to code HTML in Python f-strings ? The common wisdom is to use the template languages (<em>jinja</em>, <em>mako</em>, etc.) and separate the concerns.</p>
+<p>Templates languages were invented with the idea of separation of concerns. Or, more likely, with the idea of "let's add some dynamic to this otherwise static document". They are great for the static sites, user-generated markup, teams with dedicated designers. Programmers manage the logic and models. Designers are authoring the HTML. Template languages give designers a basic programming features for rendering models: loops, conditionals, filters, macros. No way should designers mess with the code and models. Template isolate these worlds.</p>
+<p>The situation is different for developers, fully controlling the templates and implementing both the code and markup.
+The templates languages stand in the way. They lack the expressiveness of programming language. They are bound to the models only by the fragile magic strings (identifiers). It's too easy to produce invalid markup by misplacing some conditional blocks, like the C-code with <code>#ifdef</code> overuse. IDE support is not that good. Composing from macro components
+at the template language level is hard. Scopes of variables are mess.</p>
+<p>A lot of times templates are sitting in the dark corner of the repository that nobody wants to touch. With a sign on the door saying Beware of the Leopard.</p>
+<h2 id="rethinking">Rethinking</h2>
+<p>Think about it for the moment. We are dumping our beautifully
+type-annotated models with full IDE support into the template engine, and they leave the Python land. We receive them in the
+Template language land and reconstruct them by the fragile untyped string identifiers. Engine executes the template compiled to function, which processes the conditionals, stringifies the models attributes, applies filters and interpolates the result into the huge string.
+The string leaves the Template language land to be received back in the Python land.</p>
+<p>What if we could stay in the Python land until the very end ? And it would be so nice to let the Python itself compile the template code. And maybe this code could be safe from eval and template injections.
+Then this code should be very fast, since it's native. And maybe we could get rid of magic identifiers too and let the IDE help us with missing attributes, refactoring, and stuff. And throw in a good measure of typesafety to prevent us
+from accidentally templating the wrong models. And then let us use the full power of Python and libraries in templating. If only it could be possible ...</p>
+<p>Sure, the f-strings are far from perfect, but they are native, fast, and safe. With the help of the few utilities, we could build
+our minimal templating solution. It won't be foolproof, but good enough for a lot of cases.</p>
+<h2 id="expressiveness-of-language">Expressiveness of language</h2>
+<p><a href="https://react.dev">React</a>'s JSX success shows that reusing the JS as the template logic engine is the great idea. Almost nothing new to learn, full language power at the fingertips.</p>
+<p><a href="https://lit.dev">lit-html</a> and numerous other JS tagged literal libraries use the native JS templates for producing HTML. htmf tries to bring the same to Python.</p>
+<p>Various declarative config formats with templates (<em>Ansible</em>!) become unmanageable after just a few introduced conditionals. On the other way, language-based configs scales much better.</p>
+<h2 id="separation-of-concernslocality">Separation of concerns/locality</h2>
+<p>Some modern examples:</p>
+<p>React blurs the distinction between code and markup in JSX.</p>
+<p><a href="https://vuejs.org">Vue.js</a> components are the mixture of code, templates and styles, all nicely sitting in one file. Moreother, there is an option to produce HTML with tagged literals too.</p>
+<p><a href="https://tailwindcss.com">tailwindcss</a> brings styles back into the markup, brokes with the traditional HTML/CSS separation. Developers are happy.</p>
+<p>CSS-in-JS libraries place the CSS declarations in JS code... Actually, lets forget it. It was a horrible idea.</p>
+<p>No more switching between files and syncing identifiers back and forth.</p>
+<p>htmf allows colocating markup with form, route, or model.
+In some cases, it may be just the right solution.</p>
+<h2 id="composability">Composability</h2>
+<p>htmf promotes splitting the markup into the number of small components and then composing them using the built-in Python language features.</p>
+<p>As soon as the template becomes noisy, it's time to refactor it into the separate component. Tailwind suggests the <a href="https://tailwindcss.com/docs/reusing-styles#extracting-components-and-partials">same solution</a> for its unwieldy long class strings.</p>
+<p>The interesting thing here is that above the some base level there is no more raw HTML to be seen, just the components:</p>
+<!--
+fields = [Input("a", ...), Textbox("b", ...)]
+return Layout(
+    body=Form(fields, ...),
+    header=Header(),
+    footer=Footer()
+)
+ -->
+<div class="htmf-code"><div><span style="color: #001080;">fields</span><span style="color: #000000;"> = [Input(</span><span style="color: #a31515;">"a"</span><span style="color: #000000;">, ...), Textbox(</span><span style="color: #a31515;">"b"</span><span style="color: #000000;">, ...)]</span></div><div><span style="color: #af00db;">return</span><span style="color: #000000;"> Layout(</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #001080;">body</span><span style="color: #000000;">=Form(</span><span style="color: #001080;">fields</span><span style="color: #000000;">, ...),</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #001080;">header</span><span style="color: #000000;">=Header(),</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #001080;">footer</span><span style="color: #000000;">=Footer()</span></div><div><span style="color: #000000;">)</span></div></div>
+
+<hr />
+<p>Give the HTML in f-strings a try on some side project, with the linting and syntax highlighting it actually feels ok.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>

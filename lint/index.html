@@ -1,0 +1,592 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://jkmnt.github.io/htmf/lint/">
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+        <link rel="next" href="../format/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+    
+    
+      
+        <title>Linting - htmf - HTML in Python f-strings</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue-grey" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-header__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            htmf - HTML in Python f-strings
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linting
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="htmf - HTML in Python f-strings" class="md-nav__button md-logo" aria-label="htmf - HTML in Python f-strings" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    htmf - HTML in Python f-strings
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/jkmnt/htmf" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Intro
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rant/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Motivation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utilities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Linting
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Linting
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intallation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intallation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple usage
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#annotating-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Annotating the code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying-the-markup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verifying the markup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced typing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Options
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../format/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../highlight/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Highlighting
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="linting">Linting</h1>
+<p>The linting is implemented as <a href="https://www.pylint.org">Pylint</a> plugin, making it's easy to integrate HTML checks into the workflow.</p>
+<h2 id="intallation">Intallation</h2>
+<div class="language-text copy highlight"><pre><span></span><code>pip install pylint-htmf
+</code></pre></div>
+<h2 id="simple-usage">Simple usage</h2>
+<div class="language-text highlight"><pre><span></span><code>pylint --load-plugin=pylint_htmf --disable=all --enable=htmf-checker &lt;path&gt;
+</code></pre></div>
+<p>This command line runs HTML checks over the files in path, while disabling all other Pylint rules. More info on running checks is in the <a href="https://docs.pylint.org">Pylint documentation</a></p>
+<h2 id="annotating-the-code">Annotating the code</h2>
+<p>There is no way to hook into Python f-strings interpolation in runtime and make f-expressions safe. So htmf uses the typehints and linting instead.</p>
+<p>Linter tries to prove that the f-expressions are either instances of the <code>Safe</code> class or simple HTML-safe literals.</p>
+<hr />
+<p>The expressions are recognized as safe if they are:</p>
+<ul>
+<li>
+<p>literal strings containing no HTML-special characters
+    <!--
+    ht.m(f"<p>{ 'known to be safe' }{ '<this will fail>' }</p>")
+    -->
+    <div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;p&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #a31515;">'known to be safe'</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}{</span><span style="color: #000000;"> </span><span style="color: #a31515;">'&lt;this will fail&gt;'</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/p&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
+</li>
+<li>
+<p>function calls returning <code>Safe</code>. htmf's own utilities return <code>Safe</code>, so <code>ht.m</code>, <code>ht.t</code>, etc are ok.
+    <!--
+    def MyComponent() -> Safe: ...
+    ...
+    ht.m(f"<div>{ MyComponent() }</div>")
+    -->
+    <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">: ...</span></div><div><span style="color: #000000;">...</span></div><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>the class methods are currently not recognized, only the simple functions.</p>
+</div>
+</li>
+<li>
+<p>variables (including arguments) type-annotated as <code>Safe</code>. Linter will check the f-expression, while your typechecker will help you to supply the safe arguments.
+    <!--
+    def Widget(header: Safe, body: Safe) -> Safe:
+        return ht.m(f"<div>{ header } { body }</div>")
+    -->
+    <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">Widget</span><span style="color: #000000;">(</span><span style="color: #001080;">header</span><span style="color: #000000;">: </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">, </span><span style="color: #001080;">body</span><span style="color: #000000;">: </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">) -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">:</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #af00db;">return</span><span style="color: #000000;"> </span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #001080;">header</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #001080;">body</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
+</li>
+<li>
+<p><code>if/else</code> ternary if both branches are <code>Safe</code>
+    <!--
+        ht.m(f"<div>{ 'a' if some_conditional else 'b' }</div>")
+        -->
+    <div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #a31515;">'a'</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> some_conditional </span><span style="color: #af00db;">else</span><span style="color: #000000;"> </span><span style="color: #a31515;">'b'</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
+</li>
+<li>
+<p><code>or</code> expression if left operands are <code>Safe</code> (or <code>None</code>) and right operand is <code>Safe</code>
+    <!--
+    ht.m(f"<div>{ safe_or_none or another_safe_or_none or '?' }</div>")
+    -->
+    <div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> safe_or_none </span><span style="color: #0000ff;">or</span><span style="color: #000000;"> another_safe_or_none </span><span style="color: #0000ff;">or</span><span style="color: #000000;"> </span><span style="color: #a31515;">'?'</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
+</li>
+<li>
+<p>simple <code>gettext</code> calls. It's assumed that if original strings are ok, the translated strings would be ok too. This rule was added to reduce noise in templates. Enabled by default.
+    <!-- There was a bug with python-markdown treating _() of gettext as markdown emph. Solved by escaping it with \_ -->
+    <!--
+        ht.m(f"<div>{ _('This is assumed safe') } { _('<... but this is not>') }</div>"
+    -->
+    <div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> _(</span><span style="color: #a31515;">'This is assumed safe'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> _(</span><span style="color: #a31515;">'&lt;... but this is not&gt;'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span></div></div></p>
+</li>
+<li>
+<p>whitelisted functions known to return HTML-safe results. Empty by default.</p>
+</li>
+</ul>
+<h2 id="verifying-the-markup">Verifying the markup</h2>
+<p>The second task of the linter is checking if the markup is valid HTML5. It does it by replacing all f-expressions with whitespaces and parsing result with the <a href="https://github.com/html5lib/html5lib-python">html5lib</a> in strict mode.</p>
+<p>There are a few things to be aware of:</p>
+<ul>
+<li>
+<p>The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the <code>&lt;html&gt;&lt;body&gt;...</code> tags. Use <code>ht.document</code> function to wrap the top-level template. Use <code>ht.m</code> for the partials/components.</p>
+</li>
+<li>
+<p>html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the <code>&lt;tr&gt;</code> tags allowed only inside <code>&lt;table&gt;</code>.
+  Use the magic comment above the markup function to define the scopes:
+    <!--
+    # htmf-scopes=html,table
+    ht.m("<tr> ... </tr>") # verifies in context of <html><table> ... </table></html>
+    -->
+    <div class="htmf-code"><div><span style="color: #008000;"># htmf-scopes=html,table</span></div><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;tr&gt;</span><span style="color: #000000;"> ... </span><span style="color: #800000;">&lt;/tr&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">) </span><span style="color: #008000;"># verifies in context of &lt;html&gt;&lt;table&gt; ... &lt;/table&gt;&lt;/html&gt;</span></div></div></p>
+</li>
+</ul>
+<h2 id="advanced-typing">Advanced typing</h2>
+<p>There are the cases when you want to additionally limit the acceptable arguments types.
+For example, you may want the Table to accept only <code>Safe</code> Thead, not just any <code>Safe</code>'s markup.
+You may use the Python's <code>NewType</code> and htmf's <code>SafeOf</code> annotation to achieve it:</p>
+<!--
+Thead = NewType("Thead", Safe)
+
+def TableHead() -> Thead:
+    return Thead(ht.m("<thead> ... </thead>"))
+
+def Table(head: SafeOf[Thead], items: ...):
+    return ht.m(f"<table>{ head } ... </table>")
+ -->
+<div class="htmf-code"><div><span style="color: #001080;">Thead</span><span style="color: #000000;"> = NewType(</span><span style="color: #a31515;">"Thead"</span><span style="color: #000000;">, </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">)</span></div><br><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">TableHead</span><span style="color: #000000;">() -&gt; </span><span style="color: #001080;">Thead</span><span style="color: #000000;">:</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #af00db;">return</span><span style="color: #000000;"> </span><span style="color: #001080;">Thead</span><span style="color: #000000;">(</span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;thead&gt;</span><span style="color: #000000;"> ... </span><span style="color: #800000;">&lt;/thead&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">))</span></div><br><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">Table</span><span style="color: #000000;">(</span><span style="color: #001080;">head</span><span style="color: #000000;">: </span><span style="color: #001080;">SafeOf</span><span style="color: #000000;">[Thead], </span><span style="color: #001080;">items</span><span style="color: #000000;">: ...):</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #af00db;">return</span><span style="color: #000000;"> </span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;table&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #001080;">head</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #000000;"> ... </span><span style="color: #800000;">&lt;/table&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div>
+
+<p>Now the linter knows the <code>head</code> argument is ok since it's annotated as <code>SafeOf[something]</code>, while typechecker allows passing only the Thead-compatible argument.</p>
+<h2 id="options">Options</h2>
+<p>Dump of <code>pylint --load-plugin=pylint_htmf --help</code> follows:</p>
+<div class="language-text highlight"><pre><span></span><code>...
+--htmf-markup-func &lt;regexp&gt;
+                    Function wrapping the HTML fragment (default: htmf\.m|htmf\.markup|ht\.m|ht\.markup)
+--htmf-document-func &lt;regexp&gt;
+                    Function wrapping the HTML document (default: htmf\.document|ht\.document)
+--htmf-safetype &lt;regexp&gt;
+                    Type annotating the function return type, variable or argument as HTML-safe (default:
+                    htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe)
+--htmf-safe-func &lt;regexp&gt;
+                    Whitelist of safe functions (default: None)
+--htmf-allow-simple-gettext &lt;y or n&gt;
+                    Treat simple non-interpolated gettext calls as safe (default: True)
+--htmf-allow-flat-markup &lt;y or n&gt;
+                    Allow markup of multiple elements without the parent (default: False)
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["toc.integrate"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      
+    
+  </body>
+</html>
