@@ -2,7 +2,7 @@
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
-__version__ = "0.2.0.dev1"
+__version__ = "0.2.0"
 
 
 from typing import Mapping, Iterable, TypeVar, Annotated, Any
