@@ -1,3 +1,6 @@
 /dist
 .*/
 /docs/site
+/packages/htmf/dist
+/packages/htmf-format/dist
+/packages/pylint-htmf/dist
