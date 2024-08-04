@@ -4,13 +4,13 @@ HTML formatting is useful not only for aestetic, but also for reducing git diff 
 
 ## Intallation
 
-```shell
+``` { .text, .copy }
 pip install htmf-format
 ```
 
 ## Usage
 
-```shell
+```
 htmf-format <file or dir>
 ```
 
@@ -75,7 +75,7 @@ ht.m(
 
 Dump of `htmf-format --help` follows:
 
-```shell
+```
 Basic options:
   -w, --wrap-line-length INTEGER  Wrap lines [default: unlimited]
   -q, --quiet                     Stop emitting all non-critical output. Error

@@ -12,7 +12,7 @@ Also it is the suite of tools to boost the developer experience:
 
 ## Installation
 
-```shell
+``` { .text, .copy }
 pip install htmf
 ```
 

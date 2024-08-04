@@ -1,10 +1,16 @@
 .htmf-code {
-  background-color: rgb(248, 248, 248);
+  /* background-color: rgb(248, 248, 248); */
+  background-color: var(--md-code-bg-color);
   /* background-color: #eeffcc; */
-  font-size: 12px;
-  line-height: 18px;
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
-    Courier New, Courier, monospace;
+  font-size: .85em;
+  line-height: 1.6;
+  padding: 0 .2941176471em;
+  /* font-size: 12px; */
+  /* line-height: 18px; */
+  font-feature-settings: "kern";
+  font-family: var(--md-code-font-family);
+  /* font-family: SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, */
+    /* Courier New, Courier, monospace; */
   border: 1px solid rgb(225, 228, 229);
   border-radius: 3px;
   white-space: pre;

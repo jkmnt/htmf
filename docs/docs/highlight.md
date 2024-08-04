@@ -13,7 +13,7 @@ All examples in this documentation are highlighted by it.
 Get it on [VisualStudio Marketplace](https://marketplace.visualstudio.com/items?itemName=jkmnt.vscode-python-fstring-dsl)
 
 Or install from VS Code Quick Open (`Ctrl+P`):
-```text
+``` {.text .copy }
 ext install jkmnt.vscode-python-fstring-dsl
 ```
 

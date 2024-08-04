@@ -4,7 +4,7 @@
 
 alias: `m`, `document`
 
-`markup(s: str) -> Safe`
+`#!python def markup(s: str) -> Safe`
 
 Wrapper for the markup. Triggers the HTML-syntax highlight and linting. Strips the whitespaces and marks the string as safe
 
@@ -14,18 +14,19 @@ Wrapper for the markup. Triggers the HTML-syntax highlight and linting. Strips t
 -->
 <div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.m(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #000000;"> </span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> ht.m(</span><span style="color: #a31515;">'</span><span style="color: #000000;"> &nbsp;</span><span style="color: #800000;">&lt;span&gt;</span><span style="color: #000000;">Content</span><span style="color: #800000;">&lt;/span&gt;</span><span style="color: #a31515;">'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #000000;"> &nbsp;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&lt;div&gt;&lt;span&gt;Content&lt;/span&gt;&lt;/div&gt;'</span></div></div>
 
-> Note: linter treats `document` as the root HTML document and expects the `<!DOCTYPE html><html>...</html>` tags. `m` is treated as the fragment.
+!!! Note
+    linter treats `document` as the root HTML document and expects the `<!DOCTYPE html><html>...</html>` tags. `m` is treated as the fragment.
 
 ---
 ## text
 
 alias: `t`
 
-`text(*args: Arg | Iterable[Arg], sep="") -> Safe`
+`#!python def text(*args: Arg | Iterable[Arg], sep="") -> Safe`
 
 Basic building block for HTML texts and fragments.
 
-The arguments may be `None` | `str` | `bool` | `int` | `float` or iterables of such types.
+The arguments may be `#!python  str | bool | int | float | None` or iterables of such types.
 Strings are escaped unless marked as Safe.
 Numbers are stringified. Everything else is discarded.
 
@@ -104,7 +105,7 @@ Using with actual markup
 ---
 ## attr
 
-`attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe`
+`#!python def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe`
 
 Formats arguments as the quoted HTML-attributes suitable for direct inclusion into the tags.
 Accepts the dictionary of name-value pairs and/or name-value keywords.
@@ -134,10 +135,10 @@ Returns the single string of sorted whitespace-separated pairs.
 ---
 ## classname
 
-`classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe`
+`#!python def classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe`
 
 htmf's variation of a classic [classnames](https://www.npmjs.com/package/classnames).
-The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
+The supplied arguments may be `#!python str | bool | None` or iterables of such values.
 Class names are flattened and joined into the single (unquoted!) string suitable
 for inclusion into the `class` attribute. The usage patterns are the same as of `t`.
 <!--
@@ -160,14 +161,14 @@ for inclusion into the `class` attribute. The usage patterns are the same as of 
 ---
 ## style
 
-`style(s: str) -> Safe`
+`#!python def style(s: str) -> Safe`
 
 Wrapper for inline styles intended to be included into the `style` attribute. HTML-escapes the string. Triggers the CSS-syntax highlight.
 
 ---
 ## handler
 
-`handler(s: str) -> Safe`
+`#!python def handler(s: str) -> Safe`
 
 Wrapper for inline javascript event handlers (`onlick` etc).
 HTML-escapes the string. Triggers the JS-syntax highlight.
@@ -175,7 +176,7 @@ HTML-escapes the string. Triggers the JS-syntax highlight.
 ---
 ## stylesheet
 
-`stylesheet(s: str) -> Safe`
+`#!python def stylesheet(s: str) -> Safe`
 
 Wrapper for css stylesheet for inclusion into the `<style>` tag.
 Doing almost nothing.
@@ -184,28 +185,28 @@ Triggers the CSS-syntax highlight and formatting.
 ---
 ## script
 
-`script(s: str) -> Safe`
+`#!python def script(s: str) -> Safe`
 
 Wrapper for javascript for inclusion into the `<script>` tag. Escapes `</` characters. Triggers the JS-syntax highlight and formatting
 
 ---
 ## json_attr
 
-`json_attr(val: Mapping[str, Any]) -> Safe`
+`#!python def json_attr(val: Mapping[str, Any]) -> Safe`
 
 json.dumps the value and HTML-escape it.
 
 ---
 ## csv_attr
 
-`csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe`
+`#!python def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe`
 
 Same as the `classname` but joins string with commas instead of the whitespaces.
 
 ---
 ## mark_as_safe
 
-`mark_as_safe(s: str) -> Safe`
+`#!python def mark_as_safe(s: str) -> Safe`
 
 Mark the string as safe, promoting it to the Safe class.
 It's the escape hatch if one really need to include some not-to-be escaped string. This is the same as calling the `Safe()` class constructor, but recognized by linter.
@@ -213,12 +214,13 @@ It's the escape hatch if one really need to include some not-to-be escaped strin
 ---
 ## Safe
 
-`class Safe(str)`
+`#!python class Safe(str)`
 
 Noop subclass of `str`. Used at runtime to determine if string is already escaped. Used in linting to prove the f-expressions are safe.
 Not intended to be instantiated directly.
 
-> Note: string methods of `Safe` strings, e.g. `strip`, `join`, `removeprefix`, etc. returns the `str` (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping.
+!!! warning
+    string methods of `Safe` strings, e.g. `strip`, `join`, `removeprefix`, etc. returns the `str` (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping.
 
 ---
 ## SafeOf

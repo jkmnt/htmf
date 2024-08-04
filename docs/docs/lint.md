@@ -4,13 +4,13 @@ The linting is implemented as [Pylint](https://www.pylint.org) plugin, making it
 
 ## Intallation
 
-```shell
+``` { .text, .copy }
 pip install pylint-htmf
 ```
 
 ## Simple usage
 
-```shell
+```
 pylint --load-plugin=pylint_htmf --disable=all --enable=htmf-checker <path>
 ```
 
@@ -40,7 +40,8 @@ The expressions are recognized as safe if they are:
     -->
     <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">: ...</span></div><div><span style="color: #000000;">...</span></div><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div>
 
-  > Note: the class methods are currently not recognized, only the simple functions.
+    !!! note
+        the class methods are currently not recognized, only the simple functions.
 
 - variables (including arguments) type-annotated as `Safe`. Linter will check the f-expression, while your typechecker will help you to supply the safe arguments.
     <!--
@@ -108,7 +109,7 @@ Now the linter knows the `head` argument is ok since it's annotated as `SafeOf[s
 
 Dump of `pylint --load-plugin=pylint_htmf --help` follows:
 
-```shell
+```
 ...
 --htmf-markup-func <regexp>
                     Function wrapping the HTML fragment (default: htmf\.m|htmf\.markup|ht\.m|ht\.markup)
