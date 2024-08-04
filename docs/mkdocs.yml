@@ -13,6 +13,7 @@ theme:
   features:
   #  - navigation.tabs
    - toc.integrate
+   - navigation.footer
   palette:
    primary: blue grey
 repo_url: https://github.com/jkmnt/htmf
