@@ -17,7 +17,9 @@ dynamic = ["version", "description"]
 dependencies = ["cssbeautifier >=1.15.1", "jsbeautifier >=1.15.1"]
 
 [project.urls]
-Home = "https://github.com/jkmnt/htmf"
+Documentation = "https://jkmnt.github.com/htmf"
+Source = "https://github.com/jkmnt/htmf"
+
 
 [project.scripts]
 htmf-format = "htmf_format:main"

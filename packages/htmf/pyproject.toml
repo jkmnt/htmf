@@ -16,7 +16,8 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.urls]
-Home = "https://github.com/jkmnt/htmf"
+Documentation = "https://jkmnt.github.com/htmf"
+Source = "https://github.com/jkmnt/htmf"
 
 [tool.flit.sdist]
 exclude = ["tests/"]

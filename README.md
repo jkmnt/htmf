@@ -13,7 +13,7 @@ Also it is the suite of tools to boost the developer experience:
 - HTML [formatter](format.md)
 
 ---
-Read the [documentation]()
+Read the [documentation](https://jkmnt.github.io/htmf)
 
 ---
 
@@ -28,5 +28,5 @@ pip install htmf
 <sub>Github markdown doesn't support the syntax highlight for htmf (yet :-), so it's presented as an image here.
 </sub>
 
-[Documentation]() site shows this example as proper code and
+[Documentation](https://jkmnt.github.io/htmf) site shows this example as proper code and
 explains the ideas and motivation.
