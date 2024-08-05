@@ -508,7 +508,8 @@
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>linter treats <code>document</code> as the root HTML document and expects the <code>&lt;!DOCTYPE html&gt;&lt;html&gt;...&lt;/html&gt;</code> tags. <code>m</code> is treated as the fragment.</p>
+<p>Linter treats <code>document</code> as the root HTML document with the <code class="language-html highlight"><span class="cp">&lt;!DOCTYPE html&gt;</span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code> top-level tags present.</p>
+<p><code>m</code> is treated as the fragment and may consist of any markup.</p>
 </div>
 <hr />
 <h2 id="text">text</h2>
@@ -622,7 +623,8 @@ Keywords overrides the dictionary.</p>
 
 <hr />
 <h2 id="classname">classname</h2>
-<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">classname</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">(</span><span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">]),</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p>alias: <code>c</code></p>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">classname</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
 <p>htmf's variation of a classic <a href="https://www.npmjs.com/package/classnames">classnames</a>.
 The supplied arguments may be <code class="language-python highlight"><span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span></code> or iterables of such values.
 Class names are flattened and joined into the single (unquoted!) string suitable
@@ -669,7 +671,7 @@ Triggers the CSS-syntax highlight and formatting.</p>
 <p>json.dumps the value and HTML-escape it.</p>
 <hr />
 <h2 id="csv_attr">csv_attr</h2>
-<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">csv_attr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="p">(</span><span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">]))</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
+<p><code class="language-python highlight"><span class="k">def</span> <span class="nf">csv_attr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">CnArg</span> <span class="o">|</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">CnArg</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Safe</span></code></p>
 <p>Same as the <code>classname</code> but joins string with commas instead of the whitespaces.</p>
 <hr />
 <h2 id="mark_as_safe">mark_as_safe</h2>
@@ -683,7 +685,7 @@ It's the escape hatch if one really need to include some not-to-be escaped strin
 Not intended to be instantiated directly.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>string methods of <code>Safe</code> strings, e.g. <code>strip</code>, <code>join</code>, <code>removeprefix</code>, etc. returns the <code>str</code> (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping.</p>
+<p>String methods of <code>Safe</code> strings, e.g. <code>strip</code>, <code>join</code>, <code>removeprefix</code>, etc. returns the <code>str</code> (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping. The <code>Safe</code> string may be unescaped by calling the <code class="language-python highlight"><span class="n">Safe</span><span class="o">.</span><span class="n">unescape</span><span class="p">()</span></code> method.</p>
 </div>
 <hr />
 <h2 id="safeof">SafeOf</h2>

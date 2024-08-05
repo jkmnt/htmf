@@ -449,7 +449,7 @@
     <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">: ...</span></div><div><span style="color: #000000;">...</span></div><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>the class methods are currently not recognized, only the simple functions.</p>
+<p>The class methods are currently not recognized, only the simple functions</p>
 </div>
 </li>
 <li>
@@ -491,10 +491,10 @@
 <p>There are a few things to be aware of:</p>
 <ul>
 <li>
-<p>The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the <code>&lt;html&gt;&lt;body&gt;...</code> tags. Use <code>ht.document</code> function to wrap the top-level template. Use <code>ht.m</code> for the partials/components.</p>
+<p>The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the <code class="language-html highlight"><span class="cp">&lt;!DOCTYPE html&gt;</span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span></code> tags. Use <code>ht.document</code> function to wrap the top-level template. Use <code>ht.m</code> for the partials/components.</p>
 </li>
 <li>
-<p>html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the <code>&lt;tr&gt;</code> tags allowed only inside <code>&lt;table&gt;</code>.
+<p>html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the <code class="language-html highlight"><span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span></code> tags allowed only inside <code class="language-html highlight"><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span></code>.
   Use the magic comment above the markup function to define the scopes:
     <!--
     # htmf-scopes=html,table
