@@ -15,7 +15,9 @@ Wrapper for the markup. Triggers the HTML-syntax highlight and linting. Strips t
 <div class="htmf-code"><div><span style="color: #000000;">&gt;&gt;&gt; ht.m(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #000000;"> </span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> ht.m(</span><span style="color: #a31515;">'</span><span style="color: #000000;"> &nbsp;</span><span style="color: #800000;">&lt;span&gt;</span><span style="color: #000000;">Content</span><span style="color: #800000;">&lt;/span&gt;</span><span style="color: #a31515;">'</span><span style="color: #000000;">) </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #000000;"> &nbsp;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div><div><span style="color: #a31515;">'&lt;div&gt;&lt;span&gt;Content&lt;/span&gt;&lt;/div&gt;'</span></div></div>
 
 !!! Note
-    linter treats `document` as the root HTML document and expects the `<!DOCTYPE html><html>...</html>` tags. `m` is treated as the fragment.
+    Linter treats `document` as the root HTML document with the `#!html <!DOCTYPE html><html>...</html>` top-level tags present.
+
+    `m` is treated as the fragment and may consist of any markup.
 
 ---
 ## text
@@ -135,7 +137,9 @@ Returns the single string of sorted whitespace-separated pairs.
 ---
 ## classname
 
-`#!python def classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe`
+alias: `c`
+
+`#!python def classname(*args: CnArg | Iterable[CnArg], sep=" ") -> Safe`
 
 htmf's variation of a classic [classnames](https://www.npmjs.com/package/classnames).
 The supplied arguments may be `#!python str | bool | None` or iterables of such values.
@@ -199,7 +203,7 @@ json.dumps the value and HTML-escape it.
 ---
 ## csv_attr
 
-`#!python def csv_attr(*args: (CnArg | Iterable[CnArg])) -> Safe`
+`#!python def csv_attr(*args: CnArg | Iterable[CnArg]) -> Safe`
 
 Same as the `classname` but joins string with commas instead of the whitespaces.
 
@@ -220,7 +224,7 @@ Noop subclass of `str`. Used at runtime to determine if string is already escape
 Not intended to be instantiated directly.
 
 !!! warning
-    string methods of `Safe` strings, e.g. `strip`, `join`, `removeprefix`, etc. returns the `str` (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping.
+    String methods of `Safe` strings, e.g. `strip`, `join`, `removeprefix`, etc. returns the `str` (at least in current version of htmf). The result (even if actually escaped) is no longer marked as safe. One should be aware of it to avoid double-escaping. The `Safe` string may be unescaped by calling the `#!python Safe.unescape()` method.
 
 ---
 ## SafeOf

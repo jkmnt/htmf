@@ -41,7 +41,7 @@ The expressions are recognized as safe if they are:
     <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">: ...</span></div><div><span style="color: #000000;">...</span></div><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #795e26;">MyComponent</span><span style="color: #000000;">() </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div>
 
     !!! note
-        the class methods are currently not recognized, only the simple functions.
+        The class methods are currently not recognized, only the simple functions
 
 - variables (including arguments) type-annotated as `Safe`. Linter will check the f-expression, while your typechecker will help you to supply the safe arguments.
     <!--
@@ -77,9 +77,9 @@ The second task of the linter is checking if the markup is valid HTML5. It does 
 
 There are a few things to be aware of:
 
-- The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the `<html><body>...` tags. Use `ht.document` function to wrap the top-level template. Use `ht.m` for the partials/components.
+- The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the `#!html <!DOCTYPE html><html>...</html>` tags. Use `ht.document` function to wrap the top-level template. Use `ht.m` for the partials/components.
 
-- html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the `<tr>` tags allowed only inside `<table>`.
+- html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the `#!html <tr>` tags allowed only inside `#!html <table>`.
   Use the magic comment above the markup function to define the scopes:
     <!--
     # htmf-scopes=html,table
