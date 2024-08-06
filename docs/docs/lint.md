@@ -2,7 +2,7 @@
 
 The linting is implemented as [Pylint](https://www.pylint.org) plugin, making it's easy to integrate HTML checks into the workflow.
 
-## Intallation
+## Installation
 
 ``` { .text, .copy }
 pip install pylint-htmf

@@ -2,7 +2,7 @@
 
 HTML formatting is useful not only for aestetic, but also for reducing git diff noise. So htmf supplies the formatter tool based on well-known [js-beautify](https://github.com/beautifier/js-beautify). The tool is able to format HTML, JS and CSS.
 
-## Intallation
+## Installation
 
 ``` { .text, .copy }
 pip install htmf-format
