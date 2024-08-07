@@ -114,7 +114,7 @@ Accepts the dictionary of name-value pairs and/or name-value keywords.
 Keywords overrides the dictionary.
 
 - `True` values are rendered as just the name, e.g `hidden`
-- `False` values are discarded
+- `False` and `None` values are discarded
 - strings are rendered as name-value pairs, e.g. `type="checkbox"`
 - numbers are interpolated, e.g. `tabindex="-1"`
 

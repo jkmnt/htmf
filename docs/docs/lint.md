@@ -50,13 +50,13 @@ The expressions are recognized as safe if they are:
     -->
     <div class="htmf-code"><div><span style="color: #0000ff;">def</span><span style="color: #000000;"> </span><span style="color: #795e26;">Widget</span><span style="color: #000000;">(</span><span style="color: #001080;">header</span><span style="color: #000000;">: </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">, </span><span style="color: #001080;">body</span><span style="color: #000000;">: </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">) -&gt; </span><span style="color: #267f99;">Safe</span><span style="color: #000000;">:</span></div><div><span style="color: #000000;">&nbsp; &nbsp; </span><span style="color: #af00db;">return</span><span style="color: #000000;"> </span><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #001080;">header</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #001080;">body</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div>
 
-- `if/else` ternary if both branches are `Safe`
+- `if/else` ternary if both branches are safe
     <!--
         ht.m(f"<div>{ 'a' if some_conditional else 'b' }</div>")
         -->
     <div class="htmf-code"><div><span style="color: #267f99;">ht</span><span style="color: #000000;">.</span><span style="color: #001080;">m</span><span style="color: #000000;">(</span><span style="color: #0000ff;">f</span><span style="color: #a31515;">"</span><span style="color: #800000;">&lt;div&gt;</span><span style="color: #0000ff;font-style: italic;font-weight: bold;">{</span><span style="color: #000000;"> </span><span style="color: #a31515;">'a'</span><span style="color: #000000;"> </span><span style="color: #af00db;">if</span><span style="color: #000000;"> some_conditional </span><span style="color: #af00db;">else</span><span style="color: #000000;"> </span><span style="color: #a31515;">'b'</span><span style="color: #000000;"> </span><span style="color: #0000ff;font-style: italic;font-weight: bold;">}</span><span style="color: #800000;">&lt;/div&gt;</span><span style="color: #a31515;">"</span><span style="color: #000000;">)</span></div></div>
 
-- `or` expression if left operands are `Safe` (or `None`) and right operand is `Safe`
+- `or` expression if left operands are safe (or `None`) and right operand is safe
     <!--
     ht.m(f"<div>{ safe_or_none or another_safe_or_none or '?' }</div>")
     -->
@@ -77,7 +77,7 @@ The second task of the linter is checking if the markup is valid HTML5. It does 
 
 There are a few things to be aware of:
 
-- The html5lib makes a distinction between complete HTML document and fragment. Well-formed document should contain the `#!html <!DOCTYPE html><html>...</html>` tags. Use `ht.document` function to wrap the top-level template. Use `ht.m` for the partials/components.
+- The html5lib makes a distinction between HTML document and fragment. Well-formed document should contain the `#!html <!DOCTYPE html><html>...</html>` tags. Use `ht.document` function to wrap the top-level template. Use `ht.m` for the partials/components.
 
 - html5lib will complain for some standalone fragments invalid outside of the parent tags. Notable example is the `#!html <tr>` tags allowed only inside `#!html <table>`.
   Use the magic comment above the markup function to define the scopes:
