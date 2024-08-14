@@ -14,7 +14,11 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dynamic = ["version", "description"]
-dependencies = ["cssbeautifier >=1.15.1", "jsbeautifier >=1.15.1"]
+dependencies = [
+    "click >= 8.0.0",
+    "cssbeautifier >=1.15.1",
+    "jsbeautifier >=1.15.1",
+]
 
 [project.urls]
 Documentation = "https://jkmnt.github.com/htmf"
