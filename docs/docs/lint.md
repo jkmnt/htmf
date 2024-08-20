@@ -11,10 +11,17 @@ pip install pylint-htmf
 ## Simple usage
 
 ```
+htmf-check <path>
+```
+
+This command just invokes Pylint with pylint-htmf plugin to run HTML checks
+over the files in path, while disabling all other rules:
+```
 pylint --load-plugin=pylint_htmf --disable=all --enable=htmf-checker <path>
 ```
 
-This command line runs HTML checks over the files in path, while disabling all other Pylint rules. More info on running checks is in the [Pylint documentation](https://docs.pylint.org)
+More info on running checks and CI integration is in the [Pylint documentation](https://docs.pylint.org)
+
 
 ## Annotating the code
 
