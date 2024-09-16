@@ -30,4 +30,5 @@ exclude = ["tests/"]
 line-length = 120
 
 [tool.ruff.lint]
-select = ["E", "F", "UP", "B", "FBT", "C4", "LOG", "RET", "RET502", "INT"]
+select = ["E", "F", "UP", "B", "FBT", "C4", "LOG", "RET", "INT"]
+ignore = ["UP038", "RET505"]

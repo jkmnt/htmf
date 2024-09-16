@@ -34,7 +34,7 @@ __all__ = ["Output"]
 
 
 class OutputLine:
-    def __init__(self, parent: "OutputLine" | None):
+    def __init__(self, parent: OutputLine | None):
         self.__parent = parent
         self.__character_count = 0
         self.__indent_count = -1

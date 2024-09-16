@@ -37,7 +37,7 @@ Re = re.Pattern[str] | str
 
 
 class Pattern:
-    def __init__(self, input_scanner: InputScanner, parent: "Pattern" | None = None):
+    def __init__(self, input_scanner: InputScanner, parent: Pattern | None = None):
         self._input = input_scanner
         self._starting_pattern = None
         self._match_pattern = None

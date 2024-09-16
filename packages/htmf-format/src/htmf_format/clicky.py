@@ -1,4 +1,5 @@
-from typing import Any, Callable
+from typing import Any
+from collections.abc import Callable
 import click
 
 # https://github.com/pallets/click/issues/373#issuecomment-515293746

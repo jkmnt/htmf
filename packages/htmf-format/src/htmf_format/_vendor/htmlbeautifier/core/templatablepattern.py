@@ -64,7 +64,7 @@ class TemplatePatterns:
 
 
 class TemplatablePattern(Pattern):
-    def __init__(self, input_scanner, parent: "TemplatablePattern" | None = None):
+    def __init__(self, input_scanner, parent: TemplatablePattern | None = None):
         Pattern.__init__(self, input_scanner, parent)
         self.__template_pattern = None
         self._disabled = TemplateNames()

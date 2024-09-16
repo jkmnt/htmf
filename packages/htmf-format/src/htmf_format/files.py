@@ -1,5 +1,5 @@
 import pathlib
-from typing import Iterable
+from collections.abc import Iterable
 
 
 def collect_sources(src: Iterable[str]):

@@ -59,7 +59,8 @@ def extract_func_name(call: Call):
 
 
 def extract_anno_types(node: NodeNG) -> list[str | None]:
-    """Extract annotation types, expecting it to be the union in general case. The None treated as a special case to support none_is_ok flag"""
+    """Extract annotation types, expecting it to be the union in general case.
+    The None treated as a special case to support none_is_ok flag"""
     if isinstance(node, BinOp) and node.op == "|":
         left = extract_anno_types(node.left)
         right = extract_anno_types(node.right)
@@ -214,7 +215,9 @@ class ExprChecker:
         return False
 
     def is_returning_safe(self, funcdef: FunctionDef, *, none_is_ok: bool) -> bool:
-        return funcdef.returns != None and self.is_safetype(extract_anno_types(funcdef.returns), none_is_ok=none_is_ok)
+        return funcdef.returns is not None and self.is_safetype(
+            extract_anno_types(funcdef.returns), none_is_ok=none_is_ok
+        )
 
     @trace_calls
     def is_simple_gettext_call(self, call: Call) -> bool:
@@ -256,7 +259,7 @@ class ExprChecker:
         return False
 
     @trace_calls
-    def is_safe_literal(self, const: Const, none_is_ok: bool) -> bool:
+    def is_safe_literal(self, const: Const, *, none_is_ok: bool) -> bool:
         constant = const.value
         if none_is_ok and constant is None:
             return True
@@ -285,7 +288,9 @@ class ExprChecker:
         parent = assign.parent
 
         if isinstance(parent, Assign):
-            return isinstance(parent.value, ALLOWED_VALS) and self.is_val_resolves_to_safe(parent.value, none_is_ok=none_is_ok)
+            return isinstance(parent.value, ALLOWED_VALS) and self.is_val_resolves_to_safe(
+                parent.value, none_is_ok=none_is_ok
+            )
         if isinstance(parent, Arguments):
             return self.is_safetype(extract_arg_types(assign, parent), none_is_ok=none_is_ok)
         if isinstance(parent, AnnAssign):
@@ -301,11 +306,12 @@ class ExprChecker:
         if not assigns:
             return False
         return all(
-            (isinstance(assign, AssignName) and self.is_assignname_resolves_to_safe(assign, none_is_ok=none_is_ok)) for assign in assigns
+            (isinstance(assign, AssignName) and self.is_assignname_resolves_to_safe(assign, none_is_ok=none_is_ok))
+            for assign in assigns
         )
 
     @trace_calls
-    def is_val_resolves_to_safe(self, value: Call | Const | IfExp | Name | BoolOp, none_is_ok: bool) -> bool:
+    def is_val_resolves_to_safe(self, value: Call | Const | IfExp | Name | BoolOp, *, none_is_ok: bool) -> bool:
         """Check if value(variable) is safe
         A few simple cases are supported:
             - variable is terminated in call: check if call brings safety
@@ -331,7 +337,10 @@ class ExprChecker:
                 return False
             *lefts, last = value.values
             return (
-                all(isinstance(left, ALLOWED_VALS) and self.is_val_resolves_to_safe(left, none_is_ok=True) for left in lefts)
+                all(
+                    isinstance(left, ALLOWED_VALS) and self.is_val_resolves_to_safe(left, none_is_ok=True)
+                    for left in lefts
+                )
                 and isinstance(last, ALLOWED_VALS)
                 and self.is_val_resolves_to_safe(last, none_is_ok=none_is_ok)
             )
@@ -452,7 +461,9 @@ class HtmfChecker(BaseChecker):
 
         markup_node = call.args[0]
 
-        if isinstance(markup_node, JoinedStr) or (isinstance(markup_node, Const) and isinstance(markup_node.value, str)):
+        if isinstance(markup_node, JoinedStr) or (
+            isinstance(markup_node, Const) and isinstance(markup_node.value, str)
+        ):
             file = call.root().file
             logger.info(f"Checking markup {file}:{markup_node.lineno}")
             scopes = extract_scopes_comment(call, self._update_src_cache(file)) if file else []

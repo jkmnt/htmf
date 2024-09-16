@@ -107,11 +107,7 @@ class Printer:
             newlines = 1 if raw_token.newlines else 0
 
         if self.preserve_newlines:
-            newlines = (
-                raw_token.newlines
-                if raw_token.newlines < self.max_preserve_newlines + 1
-                else self.max_preserve_newlines + 1
-            )
+            newlines = raw_token.newlines if raw_token.newlines < self.max_preserve_newlines + 1 else self.max_preserve_newlines + 1
 
         for n in range(newlines):
             self.print_newline(n > 0)
@@ -163,12 +159,7 @@ def get_type_attribute(start_token: Token):
     #  Search attributes for a type attribute
     while raw_token.type != TOKEN.EOF and start_token.closed != raw_token:
         if raw_token.type == TOKEN.ATTRIBUTE and raw_token.text == "type":
-            if (
-                raw_token.next
-                and raw_token.next.type == TOKEN.EQUALS
-                and raw_token.next.next
-                and raw_token.next.next.type == TOKEN.VALUE
-            ):
+            if raw_token.next and raw_token.next.type == TOKEN.EQUALS and raw_token.next.next and raw_token.next.next.type == TOKEN.VALUE:
                 result = raw_token.next.next.text
             break
         raw_token = raw_token.next
@@ -212,7 +203,7 @@ def get_custom_beautifier_name(tag_check: str, raw_token: Token):
 
 
 class TagFrame:
-    def __init__(self, parent: "TagFrame" | None, parser_token: "TagOpenParserToken" | None = None, indent_level=0):
+    def __init__(self, parent: TagFrame | None, parser_token: TagOpenParserToken | None = None, indent_level=0):
         self.parent = parent
         self.tag = parser_token.tag_name if parser_token else ""
         self.indent_level = indent_level
@@ -227,7 +218,7 @@ class TagStack:
     def get_parser_token(self):
         return self._current_frame.parser_token if self._current_frame else None
 
-    def record_tag(self, parser_token: "TagOpenParserToken"):
+    def record_tag(self, parser_token: TagOpenParserToken):
         # function to record a tag and its parent in self.tags Object
         new_frame = TagFrame(self._current_frame, parser_token, self._printer.indent_level)
         self._current_frame = new_frame
@@ -269,7 +260,7 @@ class TagStack:
 
 
 class TagOpenParserToken:
-    def __init__(self, options: Options, parent: "TagOpenParserToken" | None = None, raw_token: Token | None = None):
+    def __init__(self, options: Options, parent: TagOpenParserToken | None = None, raw_token: Token | None = None):
         self.parent = parent
         self.text = ""
         self.type = "TK_TAG_OPEN"
@@ -307,9 +298,7 @@ class TagOpenParserToken:
                 self.tag_check = tag_check_match.group(1) if tag_check_match else ""
 
                 #  handle "{{#> myPartial}}" or "{{~#> myPartial}}"
-                if (raw_token.text.startswith("{{#>") or raw_token.text.startswith("{{~#>")) and (
-                    self.tag_check[0:1] == ">"
-                ):
+                if (raw_token.text.startswith("{{#>") or raw_token.text.startswith("{{~#>")) and (self.tag_check[0:1] == ">"):
                     if self.tag_check == ">" and raw_token.next is not None:
                         self.tag_check = raw_token.next.text.split(" ")[0]
                     else:
@@ -410,9 +399,9 @@ class Beautifier:
             if raw_token.type == TOKEN.TAG_OPEN or raw_token.type == TOKEN.COMMENT:
                 parser_token = self._handle_tag_open(printer, raw_token, last_tag_token, last_token, tokens)
                 last_tag_token = parser_token
-            elif (
-                raw_token.type == TOKEN.ATTRIBUTE or raw_token.type == TOKEN.EQUALS or raw_token.type == TOKEN.VALUE
-            ) or (raw_token.type == TOKEN.TEXT and not last_tag_token.tag_complete):
+            elif (raw_token.type == TOKEN.ATTRIBUTE or raw_token.type == TOKEN.EQUALS or raw_token.type == TOKEN.VALUE) or (
+                raw_token.type == TOKEN.TEXT and not last_tag_token.tag_complete
+            ):
                 parser_token = self._handle_inside_tag(printer, raw_token, last_tag_token, last_token)
             elif raw_token.type == TOKEN.TAG_CLOSE:
                 parser_token = self._handle_tag_close(printer, raw_token, last_tag_token)
@@ -475,17 +464,13 @@ class Beautifier:
 
             printer.print_token(raw_token)
 
-        if last_tag_token.indent_content and not (
-            last_tag_token.is_unformatted or last_tag_token.is_content_unformatted
-        ):
+        if last_tag_token.indent_content and not (last_tag_token.is_unformatted or last_tag_token.is_content_unformatted):
             printer.indent()
 
             #  only indent once per opened tag
             last_tag_token.indent_content = False
 
-        if not last_tag_token.is_inline_element and not (
-            last_tag_token.is_unformatted or last_tag_token.is_content_unformatted
-        ):
+        if not last_tag_token.is_inline_element and not (last_tag_token.is_unformatted or last_tag_token.is_content_unformatted):
             printer.set_wrap_point()
 
         return parser_token
@@ -516,9 +501,7 @@ class Beautifier:
             elif raw_token.type == TOKEN.EQUALS:
                 # no space before =
                 printer.set_space_before_token(False)
-            elif (
-                raw_token.type == TOKEN.VALUE and raw_token.previous and raw_token.previous.type == TOKEN.EQUALS
-            ):  # no space before value
+            elif raw_token.type == TOKEN.VALUE and raw_token.previous and raw_token.previous.type == TOKEN.EQUALS:  # no space before value
                 printer.set_space_before_token(False)
 
             if raw_token.type == TOKEN.ATTRIBUTE and last_tag_token.tag_start_char == "<":
@@ -590,11 +573,7 @@ class Beautifier:
             text = re.sub(r"\n[ \t]*$", "", text, count=1)
 
             #  Handle the case where content is wrapped in a comment or cdata.
-            if (
-                last_tag_token.custom_beautifier_name != "html"
-                and text[0:1] == "<"
-                and re.search(r"^(<!--|<!\[CDATA\[)", text)
-            ):
+            if last_tag_token.custom_beautifier_name != "html" and text[0:1] == "<" and re.search(r"^(<!--|<!\[CDATA\[)", text):
                 matched = re.search(r"^(<!--[^\n]*|<!\[CDATA\[)(\n?)([ \t\n]*)([\s\S]*)(-->|]]>)$", text)
 
                 #  if we start to wrap but don't finish, print raw
@@ -623,11 +602,11 @@ class Beautifier:
                     opts: t.Any = copy.deepcopy(self._options.raw_options)
                     try:
                         opts.eol = "\n"
-                    except:
+                    except Exception:
                         try:
                             opts = opts._asdict()
                             opts["eol"] = "\n"
-                        except:
+                        except Exception:
                             pass
                     text = _beautifier(indentation + text, opts)
                 else:
@@ -693,11 +672,7 @@ class Beautifier:
                     break
 
         # indent attributes an auto, forced, aligned or forced-align line-wrap
-        if (
-            self._is_wrap_attributes_force_aligned
-            or self._is_wrap_attributes_aligned_multiple
-            or self._is_wrap_attributes_preserve_aligned
-        ):
+        if self._is_wrap_attributes_force_aligned or self._is_wrap_attributes_aligned_multiple or self._is_wrap_attributes_preserve_aligned:
             parser_token.alignment_size = len(raw_token.text) + 1
 
         if not parser_token.tag_complete and not parser_token.is_unformatted:
@@ -713,13 +688,9 @@ class Beautifier:
 
         parser_token.is_end_tag = parser_token.is_end_tag or (parser_token.tag_check in self._options.void_elements)
 
-        parser_token.is_empty_element = parser_token.tag_complete or (
-            parser_token.is_start_tag and parser_token.is_end_tag
-        )
+        parser_token.is_empty_element = parser_token.tag_complete or (parser_token.is_start_tag and parser_token.is_end_tag)
 
-        parser_token.is_unformatted = not parser_token.tag_complete and (
-            parser_token.tag_check in self._options.unformatted
-        )
+        parser_token.is_unformatted = not parser_token.tag_complete and (parser_token.tag_check in self._options.unformatted)
 
         parser_token.is_content_unformatted = not parser_token.is_empty_element and (
             parser_token.tag_check in self._options.content_unformatted
@@ -744,9 +715,7 @@ class Beautifier:
 
         if not parser_token.is_empty_element:
             if parser_token.is_end_tag:  # this tag is a double tag so check for tag-ending
-                parser_token.start_tag_token = self._tag_stack.try_pop(
-                    parser_token.tag_name
-                )  # remove it and all ancestors
+                parser_token.start_tag_token = self._tag_stack.try_pop(parser_token.tag_name)  # remove it and all ancestors
             else:  #  it's a start-tag
                 #  check if this tag is starting an element that has optional end element
                 #  and do an ending needed
@@ -833,10 +802,7 @@ class Beautifier:
         if (
             parser_token.parent
             and printer._output.just_added_newline()
-            and not (
-                (parser_token.is_inline_element or parser_token.is_unformatted)
-                and parser_token.parent.is_inline_element
-            )
+            and not ((parser_token.is_inline_element or parser_token.is_unformatted) and parser_token.parent.is_inline_element)
         ):
             parser_token.parent.multiline_content = True
 
