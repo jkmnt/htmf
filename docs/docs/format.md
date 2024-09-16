@@ -8,6 +8,10 @@ HTML formatting is useful not only for aestetic, but also for reducing git diff 
 pip install htmf-format
 ```
 
+!!! note
+    htmf-format requires the Python >= 3.12. The ASTs for f-expressions were incomplete in previous versions.
+
+
 ## Usage
 
 ```

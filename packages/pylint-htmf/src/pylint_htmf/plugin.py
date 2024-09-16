@@ -159,11 +159,13 @@ def resolve_funcdef(call: Call):
     return None
 
 
-# typing magic from official python docs
-def trace_calls[T, **P](f: t.Callable[P, T]) -> t.Callable[P, T]:
-    def inner(*args: P.args, **kwargs: P.kwargs) -> T:
+TC = t.TypeVar("TC", bound=t.Callable)
+
+
+def trace_calls(f: TC) -> TC:
+    def inner(*args, **kwargs):
         # arg0 is self
-        me: t.Any = args[0]
+        me = args[0]
         if not hasattr(me, "_nest"):
             me._nest = 0
         me._nest += 1
@@ -173,7 +175,7 @@ def trace_calls[T, **P](f: t.Callable[P, T]) -> t.Callable[P, T]:
         finally:
             me._nest -= 1
 
-    return inner
+    return t.cast(TC, inner)
 
 
 class ExprChecker:
@@ -194,7 +196,7 @@ class ExprChecker:
         return False
 
     @trace_calls
-    def is_safe_func_call(self, call: Call, *, none_is_ok: bool):
+    def is_safe_func_call(self, call: Call, *, none_is_ok: bool) -> bool:
         """
         Check if call to the function is known to be safe or type-annotated as safe.
         The call may resolve to the function in same module or imported function.
@@ -211,11 +213,11 @@ class ExprChecker:
             return True
         return False
 
-    def is_returning_safe(self, funcdef: FunctionDef, *, none_is_ok: bool):
-        return funcdef.returns and self.is_safetype(extract_anno_types(funcdef.returns), none_is_ok=none_is_ok)
+    def is_returning_safe(self, funcdef: FunctionDef, *, none_is_ok: bool) -> bool:
+        return funcdef.returns != None and self.is_safetype(extract_anno_types(funcdef.returns), none_is_ok=none_is_ok)
 
     @trace_calls
-    def is_simple_gettext_call(self, call: Call):
+    def is_simple_gettext_call(self, call: Call) -> bool:
         """
         Check if call to the simple non-interpolated gettext with safe literal.
         Assuming the translations are sane and contain no unsafe characters too.
@@ -242,7 +244,7 @@ class ExprChecker:
         )
 
     @trace_calls
-    def is_whitelisted_call(self, call: Call):
+    def is_whitelisted_call(self, call: Call) -> bool:
         """
         Check if call is in the static whitelist
         """
@@ -254,7 +256,7 @@ class ExprChecker:
         return False
 
     @trace_calls
-    def is_safe_literal(self, const: Const, none_is_ok: bool):
+    def is_safe_literal(self, const: Const, none_is_ok: bool) -> bool:
         constant = const.value
         if none_is_ok and constant is None:
             return True
@@ -262,7 +264,7 @@ class ExprChecker:
             return False
         return html.escape(constant) == constant
 
-    def is_safetype(self, type: list[str | None], *, none_is_ok: bool):
+    def is_safetype(self, type: list[str | None], *, none_is_ok: bool) -> bool:
         """Check if all types in type annotation is safe (or None is none_is_ok)"""
         if not type:
             return False
@@ -272,7 +274,7 @@ class ExprChecker:
             return all(tp and self._safe_type.fullmatch(tp) for tp in type)
 
     @trace_calls
-    def is_assignname_resolves_to_safe(self, assign: AssignName, *, none_is_ok: bool):
+    def is_assignname_resolves_to_safe(self, assign: AssignName, *, none_is_ok: bool) -> bool:
         """Check if name assignment resolves to safe.
         The supported assignments are:
             - normal assign (result of call, const, etc): follow the chain
@@ -291,7 +293,7 @@ class ExprChecker:
         return False
 
     @trace_calls
-    def is_name_resolves_to_safe(self, name: Name, *, none_is_ok: bool):
+    def is_name_resolves_to_safe(self, name: Name, *, none_is_ok: bool) -> bool:
         """Check if all assignments to name in scope (if/elif/else branches etc) resolves to safe"""
         # astroid magic !
         varname = name.name
@@ -303,7 +305,7 @@ class ExprChecker:
         )
 
     @trace_calls
-    def is_val_resolves_to_safe(self, value: Call | Const | IfExp | Name | BoolOp, none_is_ok: bool):
+    def is_val_resolves_to_safe(self, value: Call | Const | IfExp | Name | BoolOp, none_is_ok: bool) -> bool:
         """Check if value(variable) is safe
         A few simple cases are supported:
             - variable is terminated in call: check if call brings safety
