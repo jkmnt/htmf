@@ -1,4 +1,4 @@
-<img src="docs/docs/logo_small.png" width="160" height="160"/>
+<img src="docs/docs/htmf_gray.png" width="160" height="160"/>
 
 # HTML in Python f-strings
 
