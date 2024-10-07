@@ -1,4 +1,4 @@
-![](docs/docs/logo_small.png)
+<img src="docs/docs/logo_small.png" width="160" height="160"/>
 
 # HTML in Python f-strings
 
@@ -33,3 +33,7 @@ pip install htmf
 
 [Documentation](https://jkmnt.github.io/htmf) site shows this example as proper code and
 explains the ideas and motivation.
+
+<sub>
+Logo by <a href="http://alexanderkuliev.tilda.ws">Alexander Kuliev</a>
+</sub>

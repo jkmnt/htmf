@@ -1,4 +1,4 @@
-![](logo_small.png)
+<img src="logo_small.png" width="160" height="160" />
 
 # HTML in Python f-strings
 
@@ -126,11 +126,6 @@ The main utilities are:
 - `ht.c` - composes classes in a way resembling the popular [classnames](https://www.npmjs.com/package/classnames) library.
 - `Safe` - noop subclass of `str`. Used in runtime to tell HTML-escaped from non-escaped strings. Also used in linting to prove the f-expressions are safe.
 
-<!--
-## What's next ?
-
-- Read the [motivation](rant.md) if you think the template languages are the best all-around solution
-- Learn the (minimal) [utilities API](api.md)
-- Setup VS Code [syntax highlighing](highlight.md)
-- Add the [linting](lint.md) to write HTML with the confidence
-- Use the [formatter](format.md) to format the HTML and make the git diffs less noisy -->
+<sub>
+Logo by <a href="http://alexanderkuliev.tilda.ws">Alexander Kuliev</a>
+</sub>
