@@ -2,7 +2,7 @@
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 from typing import Mapping, Iterable, TypeVar, Annotated, Any
@@ -161,7 +161,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     Return the single string of whitespace-separated pairs.
     """
 
-    args = (arg or {}) | kwargs
+    args = dict(arg or {}, **kwargs)
 
     keyvals: list[str] = []
 
