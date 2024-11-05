@@ -423,9 +423,13 @@
 <div class="language-text copy highlight"><pre><span></span><code>pip install pylint-htmf
 </code></pre></div>
 <h2 id="simple-usage">Simple usage</h2>
-<div class="language-text highlight"><pre><span></span><code>pylint --load-plugin=pylint_htmf --disable=all --enable=htmf-checker &lt;path&gt;
+<div class="language-text highlight"><pre><span></span><code>htmf-check &lt;path&gt;
 </code></pre></div>
-<p>This command line runs HTML checks over the files in path, while disabling all other Pylint rules. More info on running checks is in the <a href="https://docs.pylint.org">Pylint documentation</a></p>
+<p>This command just invokes Pylint with pylint-htmf plugin to run HTML checks
+over the files in path, while disabling all other rules:
+<div class="language-text highlight"><pre><span></span><code>pylint --load-plugin=pylint_htmf --disable=all --enable=htmf-checker &lt;path&gt;
+</code></pre></div></p>
+<p>More info on running checks and CI integration is in the <a href="https://docs.pylint.org">Pylint documentation</a></p>
 <h2 id="annotating-the-code">Annotating the code</h2>
 <p>There is no way to hook into Python f-strings interpolation in runtime and make f-expressions safe. So htmf uses the typehints and linting instead.</p>
 <p>Linter tries to prove that the f-expressions are either instances of the <code>Safe</code> class or simple HTML-safe literals.</p>
@@ -486,6 +490,11 @@
 <p>whitelisted functions known to return HTML-safe results. Empty by default.</p>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>int</code> and <code>float</code> are considered safe too. Linter will accept them everywhere the Safe
+is accepted.</p>
+</div>
 <h2 id="verifying-the-markup">Verifying the markup</h2>
 <p>The second task of the linter is checking if the markup is valid HTML5. It does it by replacing all f-expressions with whitespaces and parsing result with the <a href="https://github.com/html5lib/html5lib-python">html5lib</a> in strict mode.</p>
 <p>There are a few things to be aware of:</p>
@@ -528,7 +537,7 @@ def Table(head: SafeOf[Thead], items: ...):
                     Function wrapping the HTML document (default: htmf\.document|ht\.document)
 --htmf-safetype &lt;regexp&gt;
                     Type annotating the function return type, variable or argument as HTML-safe (default:
-                    htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe)
+                    htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe|int|float)
 --htmf-safe-func &lt;regexp&gt;
                     Whitelist of safe functions (default: None)
 --htmf-allow-simple-gettext &lt;y or n&gt;

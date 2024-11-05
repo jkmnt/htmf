@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://jkmnt.github.io/htmf/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jkmnt.github.io/htmf/api/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jkmnt.github.io/htmf/format/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jkmnt.github.io/htmf/highlight/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jkmnt.github.io/htmf/lint/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://jkmnt.github.io/htmf/rant/</loc>
-         <lastmod>2024-08-07</lastmod>
+         <lastmod>2024-11-05</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
