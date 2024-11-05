@@ -31,6 +31,5 @@ else:
 
 ht.m(f"<div>{ safe_lit3 }</div>")  # [htmf-unsafe-fexpression]
 
-# NOTE: maybe numbers should be treated as safe ?
-ht.m(f"<div>{ 1 }</div>")  # [htmf-unsafe-fexpression]
-ht.m(f"<div>{ 1.0 }</div>")  # [htmf-unsafe-fexpression]
+ht.m(f"<div>{ 1 }</div>")
+ht.m(f"<div>{ 1.0 }</div>")

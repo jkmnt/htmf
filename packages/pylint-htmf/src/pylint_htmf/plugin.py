@@ -263,9 +263,15 @@ class ExprChecker:
         constant = const.value
         if none_is_ok and constant is None:
             return True
-        if not isinstance(constant, str):
+        if isinstance(constant, str):
+            return html.escape(constant) == constant
+        # bools are not ok to be rendered
+        if constant is True or constant is False:
             return False
-        return html.escape(constant) == constant
+        # these should render safe
+        if isinstance(constant, (int, float)):
+            return True
+        return False
 
     def is_safetype(self, type: list[str | None], *, none_is_ok: bool) -> bool:
         """Check if all types in type annotation is safe (or None is none_is_ok)"""
@@ -386,7 +392,7 @@ class HtmfChecker(BaseChecker):
         (
             "htmf-safetype",
             {
-                "default": r"htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe",
+                "default": r"htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe|int|float",
                 "type": "regexp",
                 "metavar": "<regexp>",
                 "help": "Type annotating the function return type, variable or argument as HTML-safe",
