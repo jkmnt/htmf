@@ -265,11 +265,8 @@ class ExprChecker:
             return True
         if isinstance(constant, str):
             return html.escape(constant) == constant
-        # bools are not ok to be rendered
-        if constant is True or constant is False:
-            return False
-        # these should render safe
-        if isinstance(constant, (int, float)):
+        # builtin int/float should render safe
+        if type(constant).__name__ in ('int', 'float'):
             return True
         return False
 

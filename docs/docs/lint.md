@@ -78,6 +78,11 @@ The expressions are recognized as safe if they are:
 
 - whitelisted functions known to return HTML-safe results. Empty by default.
 
+!!! note
+    The `int` and `float` are considered safe too. Linter will accept them everywhere the Safe
+    is accepted.
+
+
 ## Verifying the markup
 
 The second task of the linter is checking if the markup is valid HTML5. It does it by replacing all f-expressions with whitespaces and parsing result with the [html5lib](https://github.com/html5lib/html5lib-python) in strict mode.
@@ -124,7 +129,7 @@ Dump of `pylint --load-plugin=pylint_htmf --help` follows:
                     Function wrapping the HTML document (default: htmf\.document|ht\.document)
 --htmf-safetype <regexp>
                     Type annotating the function return type, variable or argument as HTML-safe (default:
-                    htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe)
+                    htmf\.SafeOf|ht\.SafeOf|SafeOf|htmf\.Safe|ht\.Safe|Safe|int|float)
 --htmf-safe-func <regexp>
                     Whitelist of safe functions (default: None)
 --htmf-allow-simple-gettext <y or n>
