@@ -2,5 +2,5 @@
 # their own settings.
 
 [MESSAGES CONTROL]
-disable=all
+disable=all, unknown-option-value
 enable=htmf-checker
