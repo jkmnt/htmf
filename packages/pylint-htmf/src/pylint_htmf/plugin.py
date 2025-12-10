@@ -10,8 +10,7 @@ import html5lib.html5parser
 
 from pylint.checkers import BaseChecker, utils
 
-
-from astroid import (
+from astroid.nodes import (
     AnnAssign,
     Arguments,
     Assign,
@@ -266,7 +265,7 @@ class ExprChecker:
         if isinstance(constant, str):
             return html.escape(constant) == constant
         # builtin int/float should render safe
-        if type(constant).__name__ in ('int', 'float'):
+        if type(constant).__name__ in ("int", "float"):
             return True
         return False
 
