@@ -265,7 +265,7 @@ class ExprChecker:
         if isinstance(constant, str):
             return html.escape(constant) == constant
         # builtin int/float should render safe
-        if type(constant).__name__ in ("int", "float"):
+        if const.pytype() in ("builtins.int", "builtins.float"):
             return True
         return False
 
