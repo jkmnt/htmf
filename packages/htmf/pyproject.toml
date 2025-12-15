@@ -16,7 +16,7 @@ classifiers = [
 dynamic = ["version", "description"]
 
 [project.urls]
-Documentation = "https://jkmnt.github.com/htmf"
+Documentation = "https://jkmnt.github.io/htmf"
 Source = "https://github.com/jkmnt/htmf"
 
 [tool.flit.sdist]
