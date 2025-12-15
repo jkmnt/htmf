@@ -519,6 +519,8 @@
 <p>The arguments may be <code class="language-python highlight"><span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span></code> or iterables of such types.
 Strings are escaped unless marked as Safe.
 Numbers are stringified. Everything else is discarded.</p>
+<p><em>New in v0.3.0</em>: Argument may also be an object implementing <code>__html__</code> method.
+Method must return the HTML-safe string.</p>
 <p>Returns the single string of concatenated arguments</p>
 <!-- >>> ht.t('123', '456', '789', ['a', 'b', 'c']):
 '123456789abc'
@@ -605,6 +607,7 @@ Keywords overrides the dictionary.</p>
 <li>strings are rendered as name-value pairs, e.g. <code>type="checkbox"</code></li>
 <li>numbers are interpolated, e.g. <code>tabindex="-1"</code></li>
 </ul>
+<p><em>New in v0.3.0</em>: Objects with <code>__html__</code> method are also supported in place of strings.</p>
 <p>Returns the single string of sorted whitespace-separated pairs.</p>
 <!--
 >>> ht.attr(id=12, hidden=True, tabindex=-1)
@@ -629,6 +632,7 @@ Keywords overrides the dictionary.</p>
 The supplied arguments may be <code class="language-python highlight"><span class="nb">str</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span></code> or iterables of such values.
 Class names are flattened and joined into the single (unquoted!) string suitable
 for inclusion into the <code>class</code> attribute. The usage patterns are the same as of <code>t</code>.</p>
+<p><em>New in v0.3.0</em>: Objects with <code>__html__</code> method are also supported in place of strings.</p>
 <!--
 >>> ht.classname(
         'text-blue-400',
