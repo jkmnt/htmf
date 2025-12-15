@@ -2,10 +2,10 @@
 
 # Licenced under the MIT License: https://www.opensource.org/licenses/mit-license.php
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 
 
-from typing import Mapping, Iterable, TypeVar, Annotated, Any
+from typing import Mapping, Iterable, Protocol, TypeGuard, TypeVar, Annotated, Any, cast
 
 import re
 import json as _json
@@ -13,8 +13,10 @@ from html import unescape
 
 
 __all__ = [
-    "attr",
     "Attrs",
+    "Safe",
+    "SafeOf",
+    "attr",
     "c",
     "classname",
     "csv_attr",
@@ -24,8 +26,6 @@ __all__ = [
     "m",
     "mark_as_safe",
     "markup",
-    "Safe",
-    "SafeOf",
     "script",
     "style",
     "stylesheet",
@@ -34,9 +34,13 @@ __all__ = [
 ]
 
 
-Arg = str | bool | None | int | float
+class ProvidesHtml(Protocol):
+    def __html__(self) -> str: ...
+
+
+Arg = str | bool | None | int | float | ProvidesHtml
 Attrs = Mapping[str, Arg]
-CnArg = str | bool | None
+CnArg = str | bool | None | ProvidesHtml
 
 S = TypeVar("S", bound="Safe")
 SafeOf = Annotated[S, "safe"]
@@ -62,6 +66,10 @@ def _replacer(m: re.Match[str]):
 # avoiding extra mem allocation.
 def _html_escape(s: str) -> str:
     return _REPLACE_RE.sub(_replacer, s)
+
+
+def _provides_html(obj: object) -> TypeGuard[ProvidesHtml]:
+    return hasattr(obj, "__html__")
 
 
 class Safe(str):
@@ -107,6 +115,9 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
     Nones and bools are dropped as in JSX. Numbers are stringified.
     Strings are escaped unless marked as safe.
 
+    New in version 0.3.0:
+    Objects with __html__ method are also supported. Method must return HTML-safe string.
+
     Returns the single string of values joined.
     """
 
@@ -117,6 +128,7 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
     append = toks.append
     esc = _html_escape
     isinst = isinstance
+    has_html = _provides_html
     safe = Safe
     number = _INT_OR_FLOAT
     _str = str
@@ -130,9 +142,11 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
             append(esc(arg))
         elif isinst(arg, number):  # rendered numbers should contain no html-unsafe chars
             append(_str(arg))
+        elif has_html(arg):
+            append(arg.__html__())
         else:  # must be iterable
             try:
-                for sub in arg:
+                for sub in cast(Iterable[Arg], arg):
                     if sub is True or sub is False or sub is None:
                         pass
                     elif isinst(sub, safe):
@@ -141,6 +155,8 @@ def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
                         append(esc(sub))
                     elif isinst(sub, number):
                         append(_str(sub))
+                    elif has_html(sub):
+                        append(sub.__html__())
             except TypeError:
                 pass
 
@@ -158,6 +174,9 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     - string values are rendered as name-value pairs, e.g. `type = "checkbox"`
     - number values are interpolated, e.g. `tabindex="-1"`
 
+    New in version 0.3.0:
+    Objects with __html__ method are also supported in place of strings.
+
     Return the single string of whitespace-separated pairs.
     """
 
@@ -168,6 +187,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     append = keyvals.append
     esc = _html_escape
     isinst = isinstance
+    has_html = _provides_html
     safe = Safe
     number = _INT_OR_FLOAT
 
@@ -189,6 +209,8 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
                 append(f'{ k }="{ esc(v) }"')
             elif isinst(v, number):
                 append(f'{ k }="{ v }"')
+            elif has_html(v):
+                append(f'{ k }="{ v.__html__() }"')
 
     return safe(" ".join(keyvals))
 
@@ -199,30 +221,37 @@ def classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe:
     The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
     All `str` classes are flattened and joined into the single (unquoted!) string suitable
     for inclusion into the `class` attribute.
+
+    New in version 0.3.0:
+    Objects with __html__ method are also supported in place of strings.
+
     """
     toks: list[str] = []
     append = toks.append
     esc = _html_escape
     isinst = isinstance
+    has_html = _provides_html
     safe = Safe
     _str = str
 
     for arg in args:
-        if not arg or arg is True:
+        if arg is True or arg is False or arg is None:
             pass
         elif isinst(arg, safe):
             append(arg)
         elif isinst(arg, _str):
             append(esc(arg))
+        elif has_html(arg):
+            append(arg.__html__())
         else:  # must be iterable
             try:
-                for sub in arg:
-                    if not arg or arg is True:
-                        pass
-                    elif isinst(sub, safe):
+                for sub in cast(Iterable[CnArg], arg):
+                    if isinst(sub, safe):
                         append(sub)
                     elif isinst(sub, _str):
                         append(esc(sub))
+                    elif has_html(sub):
+                        append(sub.__html__())
             except TypeError:
                 pass
 

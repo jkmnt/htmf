@@ -32,6 +32,12 @@ The arguments may be `#!python  str | bool | int | float | None` or iterables of
 Strings are escaped unless marked as Safe.
 Numbers are stringified. Everything else is discarded.
 
+
+*New in v0.3.0*: Argument may also be an object implementing `__html__` method.
+Method must return the HTML-safe string.
+
+
+
 Returns the single string of concatenated arguments
 
 <!-- >>> ht.t('123', '456', '789', ['a', 'b', 'c']):
@@ -118,6 +124,8 @@ Keywords overrides the dictionary.
 - strings are rendered as name-value pairs, e.g. `type="checkbox"`
 - numbers are interpolated, e.g. `tabindex="-1"`
 
+*New in v0.3.0*: Objects with `__html__` method are also supported in place of strings.
+
 Returns the single string of sorted whitespace-separated pairs.
 <!--
 >>> ht.attr(id=12, hidden=True, tabindex=-1)
@@ -145,6 +153,9 @@ htmf's variation of a classic [classnames](https://www.npmjs.com/package/classna
 The supplied arguments may be `#!python str | bool | None` or iterables of such values.
 Class names are flattened and joined into the single (unquoted!) string suitable
 for inclusion into the `class` attribute. The usage patterns are the same as of `t`.
+
+*New in v0.3.0*: Objects with `__html__` method are also supported in place of strings.
+
 <!--
 >>> ht.classname(
         'text-blue-400',

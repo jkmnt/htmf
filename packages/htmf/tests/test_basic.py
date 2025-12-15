@@ -12,7 +12,7 @@ def test_escape():
     assert escape(Safe("<div></div>")) == "<div></div>"
     assert escape("''") == "&#39;&#39;"
     assert escape('""') == "&quot;&quot;"
-    assert escape('&') == "&amp;"
+    assert escape("&") == "&amp;"
 
     # assert escape(None) == ""
     assert isinstance(escape("<div></div>"), Safe)
@@ -178,3 +178,34 @@ def test_json_attr():
 
 def test_script():
     assert script("console.log('<script></script)')") == r"console.log('<script><\/script)')"
+
+
+class HtmlDunder:
+    def __init__(self, s: str):
+        self.s = s
+
+    def __html__(self):
+        return self.s
+
+
+def test_html_dunder():
+
+    assert HtmlDunder("text").__html__() == "text"
+
+    assert text(HtmlDunder("text")) == "text"
+    assert text(HtmlDunder("<div>")) == "<div>"
+
+    assert text(HtmlDunder("a"), [HtmlDunder("b"), HtmlDunder("<c>"), "<bla>"]) == "ab<c>&lt;bla&gt;"
+
+    assert (
+        attr(
+            {
+                "code": HtmlDunder('"<div>"'),
+                "mode": HtmlDunder("foo"),
+            }
+        )
+        == 'code=""<div>"" mode="foo"'
+    )
+
+    assert classname(HtmlDunder("a"), [HtmlDunder("b"), HtmlDunder("<c>"), "<bla>"]) == "a b <c> &lt;bla&gt;"
+
