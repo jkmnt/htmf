@@ -1,6 +1,6 @@
 # import pytest
 
-from htmf import text, Safe, markup, classname, attr, csv_attr, script, json_attr, escape
+from htmf import text, Safe, markup, classname, attr, csv_attr, script, json_attr, escape, stylesheet
 
 
 class BadArg:
@@ -111,7 +111,7 @@ def test_classname():
     assert classname(Safe("&lt;here&gt;")) == "&lt;here&gt;"
     assert classname(Safe("   &lt;here&gt;     ")) == "&lt;here&gt;"
     # trust the caller - ensure no changes if marked as safe
-    assert classname(Safe("<here>")) == "<here>"
+    assert classname(Safe("<here>"), [Safe("<there>")]) == "<here> <there>"
 
     assert isinstance(classname("flex"), Safe)
 
@@ -178,6 +178,9 @@ def test_json_attr():
 
 def test_script():
     assert script("console.log('<script></script)')") == r"console.log('<script><\/script)')"
+
+def test_stylesheet():
+    assert stylesheet("<style>body {height: 95vh; display: flex; </style>") == r"<style>body {height: 95vh; display: flex; <\/style>"
 
 
 class HtmlDunder:
