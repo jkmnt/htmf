@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Added
+ - `ht.t`, `ht.c`, `ht.attr` are supporting objects with `__html__` dunder
 
 ## [0.2.1]
 
