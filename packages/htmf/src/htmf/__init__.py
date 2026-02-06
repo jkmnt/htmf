@@ -106,7 +106,7 @@ def markup(s: str) -> Safe:
     return Safe(s.strip())
 
 
-def text(*args: Arg | Iterable[Arg], sep="") -> Safe:
+def text(*args: Arg | Iterable[Arg], sep: str = "") -> Safe:
     """
     Basic building block for HTML texts and fragments.
 
@@ -215,7 +215,7 @@ def attr(arg: Attrs | None = None, /, **kwargs: Arg) -> Safe:
     return safe(" ".join(keyvals))
 
 
-def classname(*args: (CnArg | Iterable[CnArg]), sep=" ") -> Safe:
+def classname(*args: (CnArg | Iterable[CnArg]), sep: str =" ") -> Safe:
     """
     Another take on a classic `classnames`.
     The supplied arguments may be `str` | `bool` | `None` or iterables of such values.
